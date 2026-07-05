@@ -5,6 +5,7 @@
             [com.biffweb :as biff]
             [ring.middleware.anti-forgery :as csrf]
             [ring.util.response :as ring-response]
+            [com.tmt.ui.components.nav :as nav]
             [rum.core :as rum]))
 
 (defn static-path [path]
@@ -39,11 +40,10 @@
 (defn page [ctx & body]
   (base
    ctx
-   [:.flex-grow]
-   [:.p-3.mx-auto.max-w-screen-sm.w-full
-    (when (bound? #'csrf/*anti-forgery-token*)
-      {:hx-headers (cheshire/generate-string
-                    {:x-csrf-token csrf/*anti-forgery-token*})})
+   [:.
+    (nav/navbar)]
+   [:div
+
     body]
    [:.flex-grow]
    [:.flex-grow]))
