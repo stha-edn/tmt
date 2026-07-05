@@ -27,7 +27,9 @@
    label])
 
 (defn- hero-section []
-  [:section {:class "relative isolate overflow-hidden bg-gradient-to-br from-blue-900 to-blue-700 text-white"}
+  [:section#cta-arrow-region
+   {:class "relative isolate overflow-hidden bg-gradient-to-br from-blue-900 to-blue-700 text-white"}
+   [:canvas#cta-arrow-canvas {:class "absolute inset-0 pointer-events-none z-40"}]
    [:div {:aria-hidden "true" :class "absolute inset-0 -z-10"}
     [:div {:class "absolute -top-24 -left-24 size-96 rounded-full bg-blue-500 opacity-30 blur-3xl"}]
     [:div {:class "absolute -bottom-24 -right-24 size-96 rounded-full bg-indigo-400 opacity-20 blur-3xl"}]]
@@ -39,11 +41,12 @@
     [:p {:class "mt-4 text-pretty text-lg text-blue-100 max-w-2xl mx-auto"}
      "Facilities to make our guests feel like royalty and we guarantee a memorable stay."]
     [:div {:class "mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"}
-     [:a {:href "/reservations"
-          :class (str "group inline-flex items-center gap-1.5 rounded-full bg-white text-blue-800 "
-                      "px-6 py-3 text-sm font-semibold shadow-sm transition-colors hover:bg-blue-50 "
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white "
-                      "focus-visible:ring-offset-2 focus-visible:ring-offset-blue-800")}
+     [:a#cta-arrow-target
+      {:href "/reservations"
+       :class (str "group inline-flex items-center gap-1.5 rounded-full bg-white text-blue-800 "
+                   "px-6 py-3 text-sm font-semibold shadow-sm transition-colors hover:bg-blue-50 "
+                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white "
+                   "focus-visible:ring-offset-2 focus-visible:ring-offset-blue-800")}
       "Book Your Stay"
       (arrow-icon)]
      [:a {:href "/tours"

@@ -26,7 +26,11 @@
                      :description (str settings/app-name " Description")
                      :image "https://clojure.org/images/clojure-logo-120b.png"})
        (update :base/head (fn [head]
-                            (concat [[:link {:rel "stylesheet" :href (static-path "/css/main.css")}]
+                            (concat [[:link {:rel "preconnect" :href "https://fonts.googleapis.com"}]
+                                     [:link {:rel "preconnect" :href "https://fonts.gstatic.com" :crossorigin ""}]
+                                     [:link {:rel "stylesheet"
+                                             :href "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"}]
+                                     [:link {:rel "stylesheet" :href (static-path "/css/main.css")}]
                                      [:script {:src (static-path "/js/main.js")}]
                                      [:script {:src "https://unpkg.com/htmx.org@2.0.7"}]
                                      [:script {:src "https://unpkg.com/htmx-ext-ws@2.0.2/ws.js"}]
