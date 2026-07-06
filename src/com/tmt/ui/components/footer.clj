@@ -12,7 +12,7 @@
   [:a
    {:href "#"
     :class (str "flex items-center justify-center size-9 rounded-full bg-gray-800 "
-                "transition-all duration-200 hover:bg-blue-600 hover:scale-110")}
+                "transition-all duration-200 hover:bg-brand-600 hover:scale-110")}
    [:svg
     {:viewBox "0 0 24 24"
      :xmlns "http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@
 (defn- contact-column []
   [:div
    [:h4 {:class "text-sm font-semibold text-white uppercase tracking-wide"} "Contact"]
-   [:ul {:class "mt-3 space-y-2 text-sm"}
+   [:ul {:class "mt-3 list-none pl-0 my-0 space-y-2 text-sm"}
     [:li "Globe Road: (033) 386 9139"]
     [:li "New England Road: (033) 346 0177"]
     [:li [:a {:href "mailto:info@tmtours.co.za" :class "hover:text-white"} "info@tmtours.co.za"]]]])
@@ -39,7 +39,7 @@
 (defn- explore-column []
   [:div
    [:h4 {:class "text-sm font-semibold text-white uppercase tracking-wide"} "Explore"]
-   [:ul {:class "mt-3 grid grid-cols-2 gap-2 text-sm"}
+   [:ul {:class "mt-3 list-none pl-0 my-0 grid grid-cols-2 gap-2 text-sm"}
     (for [[label href] explore-links]
       [:li [:a {:href href :class "hover:text-white"} label]])]])
 

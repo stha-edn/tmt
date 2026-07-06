@@ -41,14 +41,14 @@
 (defn- logo []
   [:div.inline-flex
    [:a {:class "flex items-center gap-2" :href "/"}
-    [:span {:class "text-xl font-bold tracking-tight text-blue-700"} "TM"]
+    [:span {:class "text-xl font-bold tracking-tight text-brand-700"} "TM"]
     [:span {:class "hidden sm:block text-xl font-semibold text-gray-800"} "Guest Lodge"]]])
 
 (defn- desktop-links []
   [:div {:class "hidden md:flex items-center gap-6"}
    (for [[label href] nav-links]
      [:a {:href href
-          :class "text-sm font-medium text-gray-700 hover:text-blue-700"}
+          :class "text-sm font-medium text-gray-700 hover:text-brand-700"}
       label])])
 
 (defn- phone-numbers []
@@ -67,7 +67,7 @@
    [:div {:class "flex flex-col px-8 py-4 gap-3"}
     (for [[label href] nav-links]
       [:a {:href href
-           :class "text-sm font-medium text-gray-700 hover:text-blue-700"}
+           :class "text-sm font-medium text-gray-700 hover:text-brand-700"}
        label])
     [:div {:class "flex items-center gap-2 text-sm text-gray-700 pt-2 border-t"}
      (phone-icon)
@@ -75,16 +75,16 @@
 
 (defn navbar []
   [:.relative
-   [:nav {:class "bg-white w-full flex relative justify-between items-center mx-auto px-8 h-20"}
+   [:nav {:class "bg-white w-full flex relative justify-between items-center mx-auto max-w-6xl px-8 h-20"}
     (logo)
     (desktop-links)
     [:div {:class "flex items-center gap-4"}
      (phone-numbers)
      [:a {:href "/reservations"
-          :class (str "group hidden sm:inline-flex items-center gap-1.5 rounded-full bg-blue-600 "
+          :class (str "group hidden sm:inline-flex items-center gap-1.5 rounded-full bg-brand-600 "
                       "px-5 py-2.5 text-sm font-semibold text-white shadow-sm "
-                      "transition-colors duration-200 hover:bg-blue-500 active:bg-blue-700 "
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 "
+                      "transition-colors duration-200 hover:bg-brand-500 active:bg-brand-700 "
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 "
                       "focus-visible:ring-offset-2")}
       "Book Now"
       (arrow-icon)]

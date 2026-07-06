@@ -7,7 +7,7 @@
             [com.tmt.settings :as settings]))
 
 (def email-disabled-notice
-  [:.text-sm.mt-3.bg-blue-100.rounded.p-2
+  [:.text-sm.mt-3.bg-brand-100.rounded.p-2
    "Until you add API keys for MailerSend and reCAPTCHA, we'll print your sign-up "
    "link to the console. See config.edn."])
 
@@ -20,46 +20,45 @@
          :style {:display "inline" :fill "none" :stroke "currentcolor" :stroke-width "2"}}
    [:path {:stroke-linecap "round" :stroke-linejoin "round" :d "M4.5 10h11m0 0-4-4m4 4-4 4"}]])
 
-(defn- image-placeholder [label]
-  [:div {:class (str "aspect-video w-full rounded-3xl ring-1 ring-gray-900/5 "
-                     "bg-gradient-to-br from-gray-100 to-gray-200 "
-                     "flex items-center justify-center text-gray-400 text-sm")}
-   label])
+(defn- section-image [src alt]
+  [:img {:src src
+         :alt alt
+         :class "aspect-video w-full rounded-3xl object-cover ring-1 ring-gray-900/5"}])
 
 (defn- hero-section []
   [:section#cta-arrow-region
-   {:class "relative isolate overflow-hidden bg-gradient-to-br from-blue-900 to-blue-700 text-white"}
+   {:class "relative isolate overflow-hidden bg-gradient-to-br from-brand-900 to-brand-700 text-white"}
    [:canvas#cta-arrow-canvas {:class "absolute inset-0 pointer-events-none z-40"}]
    [:div {:aria-hidden "true" :class "absolute inset-0 -z-10"}
-    [:div {:class "absolute -top-24 -left-24 size-96 rounded-full bg-blue-500 opacity-30 blur-3xl"}]
-    [:div {:class "absolute -bottom-24 -right-24 size-96 rounded-full bg-indigo-400 opacity-20 blur-3xl"}]]
+    [:div {:class "absolute -top-24 -left-24 size-96 rounded-full bg-brand-500 opacity-30 blur-3xl"}]
+    [:div {:class "absolute -bottom-24 -right-24 size-96 rounded-full bg-brand-400 opacity-20 blur-3xl"}]]
    [:div {:class "max-w-6xl mx-auto px-8 py-24 text-center"}
-    [:p {:class "text-sm font-semibold uppercase tracking-wide text-blue-200"}
+    [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-200"}
      "Pietermaritzburg, KwaZulu-Natal"]
     [:h1 {:class "mt-3 text-balance text-4xl sm:text-5xl font-bold"}
      "One Lodge, Two Locations"]
-    [:p {:class "mt-4 text-pretty text-lg text-blue-100 max-w-2xl mx-auto"}
+    [:p {:class "mt-4 text-pretty text-lg text-brand-100 max-w-2xl mx-auto"}
      "Facilities to make our guests feel like royalty and we guarantee a memorable stay."]
     [:div {:class "mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"}
      [:a#cta-arrow-target
       {:href "/reservations"
-       :class (str "group inline-flex items-center gap-1.5 rounded-full bg-white text-blue-800 "
-                   "px-6 py-3 text-sm font-semibold shadow-sm transition-colors hover:bg-blue-50 "
+       :class (str "group inline-flex items-center gap-1.5 rounded-full bg-white text-brand-800 "
+                   "px-6 py-3 text-sm font-semibold shadow-sm transition-colors hover:bg-brand-50 "
                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white "
-                   "focus-visible:ring-offset-2 focus-visible:ring-offset-blue-800")}
+                   "focus-visible:ring-offset-2 focus-visible:ring-offset-brand-800")}
       "Book Your Stay"
       (arrow-icon)]
      [:a {:href "/tours"
           :class (str "rounded-full ring-1 ring-inset ring-white/60 px-6 py-3 text-sm font-semibold "
                       "transition-colors hover:bg-white/10 focus-visible:outline-none "
                       "focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 "
-                      "focus-visible:ring-offset-blue-800")}
+                      "focus-visible:ring-offset-brand-800")}
       "Explore Tours"]]]])
 
 (defn- cta-banner [title href]
   [:a {:href href
        :class (str "group block rounded-2xl bg-white p-6 text-center ring-1 ring-gray-900/5 shadow-sm "
-                   "transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:ring-blue-600/20")}
+                   "transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:ring-brand-600/20")}
    [:span {:class "inline-flex items-center gap-1.5 text-base font-semibold text-gray-900"}
     title
     (arrow-icon)]])
@@ -74,16 +73,16 @@
 (defn- read-more [href]
   [:a {:href href
        :class (str "group mt-4 inline-flex items-center gap-1.5 text-sm font-semibold "
-                   "text-blue-600 hover:text-blue-800")}
+                   "text-brand-600 hover:text-brand-800")}
    "Read More"
    (arrow-icon)])
 
 (defn- welcome-section []
   [:section {:class "bg-gray-50"}
    [:div {:class "max-w-6xl mx-auto px-8 py-16 grid gap-10 md:grid-cols-2 items-center"}
-    (image-placeholder "Lodge photo")
+    (section-image "/img/newengland0.jpg" "TM Guest Lodge exterior")
     [:div
-     [:p {:class "text-sm font-semibold uppercase tracking-wide text-blue-600"} "Welcome"]
+     [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-600"} "Welcome"]
      [:h2 {:class "mt-2 text-balance text-3xl font-bold text-gray-900"} "Welcome to TM Guest Lodge"]
      [:p {:class "mt-4 text-pretty text-gray-600 leading-relaxed"}
       (str "TM Guest Lodge, offering guests two locations from which to opt for, Globe Road and "
@@ -95,7 +94,7 @@
   [:section {:class "bg-white"}
    [:div {:class "max-w-6xl mx-auto px-8 py-16 grid gap-10 md:grid-cols-2 items-center"}
     [:div {:class "order-2 md:order-1"}
-     [:p {:class "text-sm font-semibold uppercase tracking-wide text-blue-600"} "Tours"]
+     [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-600"} "Tours"]
      [:h2 {:class "mt-2 text-balance text-3xl font-bold text-gray-900"} "Travel with TM Tours"]
      [:p {:class "mt-4 text-pretty text-gray-600 leading-relaxed"}
       (str "The tour service started on a small scale as a response to a need to ferry school "
@@ -103,7 +102,7 @@
            "to small, medium and large business enterprises as well as public institutions.")]
      (read-more "/tours")]
     [:div {:class "order-1 md:order-2"}
-     (image-placeholder "Tours photo")]]])
+     (section-image "/img/newengland1.jpg" "TM Tours vehicle")]]])
 
 (defn home-page [ctx]
   (ui/base
