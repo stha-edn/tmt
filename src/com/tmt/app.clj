@@ -2,7 +2,6 @@
   (:require [com.biffweb :as biff :refer [q]]
             [com.tmt.middleware :as mid]
             [com.tmt.ui :as ui]
-            [com.tmt.settings :as settings]
             [rum.core :as rum]
             [xtdb.api :as xt]
             [ring.websocket :as ws]
@@ -131,20 +130,13 @@
                   :on-close (fn [ws status-code reason]
                               (swap! chat-clients disj ws))}})
 
-(def about-page
-  (ui/page
-   {:base/title (str "About " settings/app-name)}
-   [:p "This app was made with "
-    [:a.link {:href "https://biffweb.com"} "Biff"] "."]))
-
 (defn echo [{:keys [params]}]
   {:status 200
    :headers {"content-type" "application/json"}
    :body params})
 
 (def module
-  {:static {"/about/" about-page}
-   :routes ["/app" {:middleware [mid/wrap-signed-in]}
+  {:routes ["/app" {:middleware [mid/wrap-signed-in]}
             ["" {:get app}]
             ["/set-foo" {:post set-foo}]
             ["/set-bar" {:post set-bar}]

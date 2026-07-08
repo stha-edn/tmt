@@ -1,9 +1,14 @@
 (ns com.tmt
   (:require [com.biffweb :as biff]
             [com.tmt.email :as email]
+            [com.tmt.about :as about]
             [com.tmt.app :as app]
+            [com.tmt.contact :as contact]
+            [com.tmt.gallery :as gallery]
             [com.tmt.home :as home]
             [com.tmt.middleware :as mid]
+            [com.tmt.rooms :as rooms]
+            [com.tmt.tours :as tours]
             [com.tmt.ui :as ui]
             [com.tmt.worker :as worker]
             [com.tmt.schema :as schema]
@@ -19,6 +24,11 @@
   [app/module
    (biff/authentication-module {})
    home/module
+   rooms/module
+   tours/module
+   gallery/module
+   about/module
+   contact/module
    schema/module
    worker/module])
 

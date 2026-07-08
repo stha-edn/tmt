@@ -1,3 +1,3 @@
 (ns com.tmt.settings)
 
-(def app-name "My Application")
+(def app-name "TM Guest Lodge")
