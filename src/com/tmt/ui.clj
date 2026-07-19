@@ -44,13 +44,10 @@
 (defn page [ctx & body]
   (base
    ctx
-   [:.
-    (nav/navbar)]
-   [:div
-
-    body]
-   [:.flex-grow]
-   [:.flex-grow]))
+   [:.min-h-screen.flex.flex-col
+    (nav/navbar)
+    [:main.flex-1
+     body]]))
 
 (defn on-error [{:keys [status ex] :as ctx}]
   {:status status

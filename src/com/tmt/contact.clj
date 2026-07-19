@@ -2,6 +2,8 @@
   (:require [com.biffweb :as biff]
             [com.tmt.email :as email]
             [com.tmt.ui :as ui]
+            [com.tmt.ui.icons :as icons]
+            [com.tmt.ui.components.shared :as shared]
             [com.tmt.ui.components.nav :as nav]
             [com.tmt.ui.components.footer :as footer]
             [rum.core :as rum]))
@@ -33,40 +35,9 @@
                          "At the first traffic light (Ridge Road), turn right into Sanders Road"
                          "The property is first on the left"]}])
 
-(defn- arrow-icon []
-  [:svg {:viewBox "0 0 20 20"
-         :xmlns "http://www.w3.org/2000/svg"
-         :aria-hidden "true"
-         :focusable "false"
-         :class "size-4 transition-transform duration-200 group-hover:translate-x-0.5"
-         :style {:display "inline" :fill "none" :stroke "currentcolor" :stroke-width "2"}}
-   [:path {:stroke-linecap "round" :stroke-linejoin "round" :d "M4.5 10h11m0 0-4-4m4 4-4 4"}]])
-
-(defn- pin-icon []
-  [:svg {:viewBox "0 0 24 24"
-         :xmlns "http://www.w3.org/2000/svg"
-         :aria-hidden "true"
-         :focusable "false"
-         :class "size-5 shrink-0 text-brand-600"
-         :style {:display "block" :fill "none" :stroke "currentcolor" :stroke-width "1.75"}}
-   [:path {:stroke-linecap "round" :stroke-linejoin "round"
-           :d "M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21Z"}]
-   [:circle {:cx "12" :cy "9.5" :r "2.25"}]])
-
 (def ^:private email-disabled-notice
   [:.text-sm.mt-4.bg-brand-100.rounded.p-3
    "Until you add API keys for MailerSend, we'll print enquiries to the console instead of emailing them. See config.edn."])
-
-(defn- hero-section []
-  [:section {:class "relative isolate overflow-hidden bg-gradient-to-br from-brand-900 to-brand-700 text-white"}
-   [:div {:aria-hidden "true" :class "absolute inset-0 -z-10"}
-    [:div {:class "absolute -top-24 -left-24 size-96 rounded-full bg-brand-500 opacity-30 blur-3xl"}]
-    [:div {:class "absolute -bottom-24 -right-24 size-96 rounded-full bg-brand-400 opacity-20 blur-3xl"}]]
-   [:div {:class "max-w-6xl mx-auto px-8 py-20 text-center"}
-    [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-200"} "We'd Love to Hear From You"]
-    [:h1 {:class "mt-3 text-balance text-4xl sm:text-5xl font-bold"} "Get in Touch"]
-    [:p {:class "mt-4 text-pretty text-lg text-brand-100 max-w-2xl mx-auto"}
-     "Questions about a room, a tour, or a reservation? Send us a message and we'll get back to you."]]])
 
 (defn- text-field [{:keys [id label type required] :or {type "text"}}]
   [:div
@@ -102,7 +73,7 @@
                          "px-6 py-3 text-sm font-semibold text-white shadow-sm "
                          "transition-colors duration-200 hover:bg-brand-500 active:bg-brand-700")}
     "Send Message"
-    (arrow-icon)]
+    (icons/arrow-icon)]
    (when-some [error (:error params)]
      [:.text-sm.text-red-600
       (case error
@@ -143,7 +114,7 @@
 (defn- location-card [{:keys [name address phone alt-phone fax directions-jhb directions-durban]}]
   [:div {:class "rounded-3xl bg-gray-50 p-6 ring-1 ring-gray-900/5"}
    [:div {:class "flex items-start gap-3"}
-    (pin-icon)
+    (icons/pin-icon)
     [:div
      [:h3 {:class "text-lg font-bold text-gray-900"} name]
      [:p {:class "mt-1 text-sm text-gray-600"} address]]]
@@ -175,7 +146,10 @@
    ctx
    (nav/navbar)
    [:main
-    (hero-section)
+    (shared/hero-section
+     {:badge "We'd Love to Hear From You"
+      :title "Get in Touch"
+      :description "Questions about a room, a tour, or a reservation? Send us a message and we'll get back to you."})
     (form-section ctx)
     (locations-section)]
    (footer/footer)))

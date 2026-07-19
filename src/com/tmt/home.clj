@@ -2,6 +2,8 @@
   (:require [com.biffweb :as biff]
             [com.tmt.middleware :as mid]
             [com.tmt.ui :as ui]
+            [com.tmt.ui.icons :as icons]
+            [com.tmt.ui.components.shared :as shared]
             [com.tmt.ui.components.nav :as nav]
             [com.tmt.ui.components.footer :as footer]
             [com.tmt.settings :as settings]))
@@ -11,49 +13,22 @@
    "Until you add API keys for MailerSend and reCAPTCHA, we'll print your sign-up "
    "link to the console. See config.edn."])
 
-(defn- arrow-icon []
-  [:svg {:viewBox "0 0 20 20"
-         :xmlns "http://www.w3.org/2000/svg"
-         :aria-hidden "true"
-         :focusable "false"
-         :class "size-4 transition-transform duration-200 group-hover:translate-x-0.5"
-         :style {:display "inline" :fill "none" :stroke "currentcolor" :stroke-width "2"}}
-   [:path {:stroke-linecap "round" :stroke-linejoin "round" :d "M4.5 10h11m0 0-4-4m4 4-4 4"}]])
-
 (defn- section-image [src alt]
   [:img {:src src
          :alt alt
          :class "aspect-video w-full rounded-3xl object-cover ring-1 ring-gray-900/5"}])
 
 (defn- hero-section []
-  [:section#cta-arrow-region
-   {:class "relative isolate overflow-hidden bg-gradient-to-br from-brand-900 to-brand-700 text-white"}
-   [:canvas#cta-arrow-canvas {:class "absolute inset-0 pointer-events-none z-40"}]
-   [:div {:aria-hidden "true" :class "absolute inset-0 -z-10"}
-    [:div {:class "absolute -top-24 -left-24 size-96 rounded-full bg-brand-500 opacity-30 blur-3xl"}]
-    [:div {:class "absolute -bottom-24 -right-24 size-96 rounded-full bg-brand-400 opacity-20 blur-3xl"}]]
-   [:div {:class "max-w-6xl mx-auto px-8 py-24 text-center"}
-    [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-200"}
-     "Pietermaritzburg, KwaZulu-Natal"]
-    [:h1 {:class "mt-3 text-balance text-4xl sm:text-5xl font-bold"}
-     "One Lodge, Two Locations"]
-    [:p {:class "mt-4 text-pretty text-lg text-brand-100 max-w-2xl mx-auto"}
-     "Facilities to make our guests feel like royalty and we guarantee a memorable stay."]
-    [:div {:class "mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"}
-     [:a#cta-arrow-target
-      {:href "/reservations"
-       :class (str "group inline-flex items-center gap-1.5 rounded-full bg-white text-brand-800 "
-                   "px-6 py-3 text-sm font-semibold shadow-sm transition-colors hover:bg-brand-50 "
-                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white "
-                   "focus-visible:ring-offset-2 focus-visible:ring-offset-brand-800")}
-      "Book Your Stay"
-      (arrow-icon)]
-     [:a {:href "/tours"
-          :class (str "rounded-full ring-1 ring-inset ring-white/60 px-6 py-3 text-sm font-semibold "
-                      "transition-colors hover:bg-white/10 focus-visible:outline-none "
-                      "focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 "
-                      "focus-visible:ring-offset-brand-800")}
-      "Explore Tours"]]]])
+  (shared/hero-section
+   {:id "cta-arrow-region"
+    :badge "Pietermaritzburg, KwaZulu-Natal"
+    :title "One Lodge, Two Locations"
+    :description "Facilities to make our guests feel like royalty and we guarantee a memorable stay."
+    :py "py-24"
+    :before [:canvas#cta-arrow-canvas {:class "absolute inset-0 pointer-events-none z-40"}]
+    :children [:div {:class "mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"}
+               (shared/primary-button "Book Your Stay" {:href "/reservations" :id "cta-arrow-target"})
+               (shared/secondary-button "Explore Tours" {:href "/tours"})]}))
 
 (defn- cta-banner [title href]
   [:a {:href href
@@ -61,7 +36,7 @@
                    "transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:ring-brand-600/20")}
    [:span {:class "inline-flex items-center gap-1.5 text-base font-semibold text-gray-900"}
     title
-    (arrow-icon)]])
+    (icons/arrow-icon)]])
 
 (defn- cta-banners []
   [:section {:class "bg-white"}
@@ -75,7 +50,7 @@
        :class (str "group mt-4 inline-flex items-center gap-1.5 text-sm font-semibold "
                    "text-brand-600 hover:text-brand-800")}
    "Read More"
-   (arrow-icon)])
+   (icons/arrow-icon)])
 
 (defn- welcome-section []
   [:section {:class "bg-gray-50"}

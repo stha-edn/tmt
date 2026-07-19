@@ -1,5 +1,7 @@
 (ns com.tmt.rooms
   (:require [com.tmt.ui :as ui]
+            [com.tmt.ui.icons :as icons]
+            [com.tmt.ui.components.shared :as shared]
             [com.tmt.ui.components.nav :as nav]
             [com.tmt.ui.components.footer :as footer]))
 
@@ -30,60 +32,9 @@
     :rate "480"
     :amenities ["Flat-screen TV" "Stove & oven" "Cutlery & crockery" "Microwave" "Bar fridge"]}])
 
-(defn- arrow-icon []
-  [:svg {:viewBox "0 0 20 20"
-         :xmlns "http://www.w3.org/2000/svg"
-         :aria-hidden "true"
-         :focusable "false"
-         :class "size-4 transition-transform duration-200 group-hover:translate-x-0.5"
-         :style {:display "inline" :fill "none" :stroke "currentcolor" :stroke-width "2"}}
-   [:path {:stroke-linecap "round" :stroke-linejoin "round" :d "M4.5 10h11m0 0-4-4m4 4-4 4"}]])
-
-(defn- check-icon []
-  [:svg {:viewBox "0 0 20 20"
-         :xmlns "http://www.w3.org/2000/svg"
-         :aria-hidden "true"
-         :focusable "false"
-         :class "size-4 shrink-0 text-brand-600"
-         :style {:display "block" :fill "none" :stroke "currentcolor" :stroke-width "2"}}
-   [:path {:stroke-linecap "round" :stroke-linejoin "round" :d "M4 10.5 8 14.5 16 5.5"}]])
-
-(defn- bed-icon []
-  [:svg {:viewBox "0 0 24 24"
-         :xmlns "http://www.w3.org/2000/svg"
-         :aria-hidden "true"
-         :focusable "false"
-         :class "size-4 shrink-0 text-gray-400"
-         :style {:display "block" :fill "none" :stroke "currentcolor" :stroke-width "1.75"}}
-   [:path {:stroke-linecap "round" :stroke-linejoin "round"
-           :d "M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 18v2M21 18v2M3 12V7a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v3M13 9h6a2 2 0 0 1 2 2v1"}]])
-
-(defn- users-icon []
-  [:svg {:viewBox "0 0 24 24"
-         :xmlns "http://www.w3.org/2000/svg"
-         :aria-hidden "true"
-         :focusable "false"
-         :class "size-4 shrink-0 text-gray-400"
-         :style {:display "block" :fill "none" :stroke "currentcolor" :stroke-width "1.75"}}
-   [:path {:stroke-linecap "round" :stroke-linejoin "round"
-           :d "M17 20v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1M15 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM21 20v-1a4 4 0 0 0-3-3.87M15.5 5.13A3 3 0 0 1 18 8a3 3 0 0 1-1.28 2.46"}]])
-
-(defn- hero-section []
-  [:section {:class "relative isolate overflow-hidden bg-gradient-to-br from-brand-900 to-brand-700 text-white"}
-   [:div {:aria-hidden "true" :class "absolute inset-0 -z-10"}
-    [:div {:class "absolute -top-24 -right-24 size-96 rounded-full bg-brand-500 opacity-30 blur-3xl"}]
-    [:div {:class "absolute -bottom-24 -left-24 size-96 rounded-full bg-brand-400 opacity-20 blur-3xl"}]]
-   [:div {:class "max-w-6xl mx-auto px-8 py-20 text-center"}
-    [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-200"} "Globe Road & New England Road"]
-    [:h1 {:class "mt-3 text-balance text-4xl sm:text-5xl font-bold"} "Rooms & Rates"]
-    [:p {:class "mt-4 text-pretty text-lg text-brand-100 max-w-2xl mx-auto"}
-     (str "Two guest lodges in the quiet, tranquil suburb of Scottsville, Pietermaritzburg — "
-          "ideally suited for individuals, executives and families. Bed only, B&B, DB&B and "
-          "self catering options available at both locations.")]]])
-
 (defn- amenity-pill [text]
   [:li {:class "flex items-center gap-2 text-sm text-gray-600"}
-   (check-icon)
+   (icons/check-icon)
    text])
 
 (defn- room-card [{:keys [name image alt bed capacity rate amenities]}]
@@ -97,9 +48,9 @@
    [:div {:class "flex flex-1 flex-col p-6"}
     [:h3 {:class "text-lg font-bold text-gray-900"} name]
     [:div {:class "mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500"}
-     [:span {:class "flex items-center gap-1.5"} (bed-icon) bed]
+     [:span {:class "flex items-center gap-1.5"} (icons/bed-icon) bed]
      (when capacity
-       [:span {:class "flex items-center gap-1.5"} (users-icon) capacity])]
+       [:span {:class "flex items-center gap-1.5"} (icons/users-icon) capacity])]
     [:ul {:class "mt-4 grid grid-cols-1 gap-2 pl-0 list-none my-0 sm:grid-cols-2"}
      (map amenity-pill amenities)]
     [:div {:class "mt-6 pt-4 border-t border-gray-100"}
@@ -107,7 +58,7 @@
           :class (str "group/link inline-flex items-center gap-1.5 text-sm font-semibold "
                       "text-brand-600 hover:text-brand-800")}
       "Enquire about this room"
-      (arrow-icon)]]]])
+      (icons/arrow-icon)]]]])
 
 (defn- rooms-grid-section []
   [:section {:class "bg-gray-50"}
@@ -142,32 +93,23 @@
        [:dd {:class "mt-1 text-sm text-gray-600"} "(033) 346 0177"]]]]]])
 
 (defn- cta-section []
-  [:section {:class "relative isolate overflow-hidden bg-gradient-to-br from-brand-900 to-brand-700 text-white"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-16 text-center"}
-    [:h2 {:class "text-balance text-3xl font-bold"} "Ready to Book Your Stay?"]
-    [:p {:class "mt-3 text-pretty text-brand-100 max-w-xl mx-auto"}
-     "Send us your preferred room type, check-in date and length of stay, and we'll take it from there."]
-    [:div {:class "mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"}
-     [:a {:href "/reservations"
-          :class (str "group inline-flex items-center gap-1.5 rounded-full bg-white text-brand-800 "
-                      "px-6 py-3 text-sm font-semibold shadow-sm transition-colors hover:bg-brand-50 "
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white "
-                      "focus-visible:ring-offset-2 focus-visible:ring-offset-brand-800")}
-      "Make a Reservation"
-      (arrow-icon)]
-     [:a {:href "mailto:info@tmtours.co.za"
-          :class (str "rounded-full ring-1 ring-inset ring-white/60 px-6 py-3 text-sm font-semibold "
-                      "transition-colors hover:bg-white/10 focus-visible:outline-none "
-                      "focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 "
-                      "focus-visible:ring-offset-brand-800")}
-      "info@tmtours.co.za"]]]])
+  (shared/cta-section
+   {:title "Ready to Book Your Stay?"
+    :description "Send us your preferred room type, check-in date and length of stay, and we'll take it from there."
+    :children [(shared/primary-button "Make a Reservation" {:href "/reservations"})
+               (shared/secondary-button "info@tmtours.co.za" {:href "mailto:info@tmtours.co.za"})]}))
 
 (defn rooms-page [ctx]
   (ui/base
    ctx
    (nav/navbar)
    [:main
-    (hero-section)
+    (shared/hero-section
+     {:badge "Globe Road & New England Road"
+      :title "Rooms & Rates"
+      :description (str "Two guest lodges in the quiet, tranquil suburb of Scottsville, Pietermaritzburg — "
+                        "ideally suited for individuals, executives and families. Bed only, B&B, DB&B and "
+                        "self catering options available at both locations.")})
     (rooms-grid-section)
     (locations-section)
     (cta-section)]

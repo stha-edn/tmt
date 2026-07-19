@@ -1,5 +1,7 @@
 (ns com.tmt.about
   (:require [com.tmt.ui :as ui]
+            [com.tmt.ui.icons :as icons]
+            [com.tmt.ui.components.shared :as shared]
             [com.tmt.ui.components.nav :as nav]
             [com.tmt.ui.components.footer :as footer]))
 
@@ -26,27 +28,6 @@
    {:title "Two Locations, One Standard"
     :description "Globe Road and New England Road offer the same rooms, rates and standard of comfort."}])
 
-(defn- arrow-icon []
-  [:svg {:viewBox "0 0 20 20"
-         :xmlns "http://www.w3.org/2000/svg"
-         :aria-hidden "true"
-         :focusable "false"
-         :class "size-4 transition-transform duration-200 group-hover:translate-x-0.5"
-         :style {:display "inline" :fill "none" :stroke "currentcolor" :stroke-width "2"}}
-   [:path {:stroke-linecap "round" :stroke-linejoin "round" :d "M4.5 10h11m0 0-4-4m4 4-4 4"}]])
-
-(defn- hero-section []
-  [:section {:class "relative isolate overflow-hidden bg-gradient-to-br from-brand-900 to-brand-700 text-white"}
-   [:div {:aria-hidden "true" :class "absolute inset-0 -z-10"}
-    [:div {:class "absolute -top-24 -left-24 size-96 rounded-full bg-brand-500 opacity-30 blur-3xl"}]
-    [:div {:class "absolute -bottom-24 -right-24 size-96 rounded-full bg-brand-400 opacity-20 blur-3xl"}]]
-   [:div {:class "max-w-6xl mx-auto px-8 py-20 text-center"}
-    [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-200"} "Pietermaritzburg, KwaZulu-Natal"]
-    [:h1 {:class "mt-3 text-balance text-4xl sm:text-5xl font-bold"} "About TM Guest Lodge"]
-    [:p {:class "mt-4 text-pretty text-lg text-brand-100 max-w-2xl mx-auto"}
-     (str "One lodge, two locations, and a tour company that grew out of the same "
-          "commitment to looking after people.")]]])
-
 (defn- location-card [{:keys [name image alt description]} idx]
   (let [reversed (odd? idx)]
     [:div {:class "grid gap-10 md:grid-cols-2 items-center"}
@@ -60,8 +41,9 @@
 
 (defn- locations-section []
   [:section {:class "bg-white"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-16 space-y-16"}
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 flex flex-col gap-16"}
     (map-indexed (fn [idx loc] (location-card loc idx)) locations)]])
+;; flex flex-col gap-16 replaces the previous space-y-16 on a non-flex container
 
 (defn- value-card [{:keys [title description]}]
   [:div {:class (str "rounded-2xl bg-white p-6 ring-1 ring-gray-900/5 shadow-sm "
@@ -93,38 +75,28 @@
           :class (str "group mt-4 inline-flex items-center gap-1.5 text-sm font-semibold "
                       "text-brand-600 hover:text-brand-800")}
       "Explore Our Tours"
-      (arrow-icon)]]
+      (icons/arrow-icon)]]
     [:img {:src "/img/gallery/tours_gallery_1.JPG"
            :alt "TM Tours fleet"
            :class "aspect-video w-full rounded-3xl object-cover ring-1 ring-gray-900/5"}]]])
 
 (defn- cta-section []
-  [:section {:class "relative isolate overflow-hidden bg-gradient-to-br from-brand-900 to-brand-700 text-white"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-16 text-center"}
-    [:h2 {:class "text-balance text-3xl font-bold"} "Come and See for Yourself"]
-    [:p {:class "mt-3 text-pretty text-brand-100 max-w-xl mx-auto"}
-     "Browse our rooms, take a look through the gallery, or get in touch to plan your stay."]
-    [:div {:class "mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"}
-     [:a {:href "/rooms"
-          :class (str "group inline-flex items-center gap-1.5 rounded-full bg-white text-brand-800 "
-                      "px-6 py-3 text-sm font-semibold shadow-sm transition-colors hover:bg-brand-50 "
-                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white "
-                      "focus-visible:ring-offset-2 focus-visible:ring-offset-brand-800")}
-      "View the Rooms"
-      (arrow-icon)]
-     [:a {:href "/contact"
-          :class (str "rounded-full ring-1 ring-inset ring-white/60 px-6 py-3 text-sm font-semibold "
-                      "transition-colors hover:bg-white/10 focus-visible:outline-none "
-                      "focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 "
-                      "focus-visible:ring-offset-brand-800")}
-      "Get in Touch"]]]])
+  (shared/cta-section
+   {:title "Come and See for Yourself"
+    :description "Browse our rooms, take a look through the gallery, or get in touch to plan your stay."
+    :children [(shared/primary-button "View the Rooms" {:href "/rooms"})
+               (shared/secondary-button "Get in Touch" {:href "/contact"})]}))
 
 (defn about-page [ctx]
   (ui/base
    ctx
    (nav/navbar)
    [:main
-    (hero-section)
+    (shared/hero-section
+     {:badge "Pietermaritzburg, KwaZulu-Natal"
+      :title "About TM Guest Lodge"
+      :description (str "One lodge, two locations, and a tour company that grew out of the same "
+                        "commitment to looking after people.")})
     (locations-section)
     (values-section)
     (tours-tie-in-section)
