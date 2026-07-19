@@ -55,15 +55,18 @@
      :signin-code signin-code)
    opts))
 
-(defn send-mailersend [{:keys [biff/secret mailersend/from mailersend/reply-to]} form-params]
-  (let [result (http/post "https://api.mailersend.com/v1/email"
-                          {:oauth-token (secret :mailersend/api-key)
+(defn send-brevo [{:keys [biff/secret brevo/from brevo/reply-to]} form-params]
+  (let [result (http/post "https://api.brevo.com/v3/smtp/email"
+                          {:headers {"api-key" (secret :brevo/api-key)}
                            :content-type :json
                            :throw-exceptions false
                            :as :json
-                           :form-params (merge {:from {:email from :name settings/app-name}
-                                                :reply_to {:email reply-to :name settings/app-name}}
-                                               form-params)})
+                           :form-params {:sender {:email from :name settings/app-name}
+                                         :replyTo {:email reply-to :name settings/app-name}
+                                         :to (:to form-params)
+                                         :subject (:subject form-params)
+                                         :htmlContent (:html form-params)
+                                         :textContent (:text form-params)}})
         success (< (:status result) 400)]
     (when-not success
       (log/error (:body result)))
@@ -76,15 +79,13 @@
   (println (:text form-params))
   (println)
   (println "To send emails instead of printing them to the console, add your"
-           "API keys for MailerSend and Recaptcha to config.env.")
+           "API keys for Brevo to config.env.")
   true)
 
-(defn send-email [{:keys [biff/secret recaptcha/site-key] :as ctx} opts]
+(defn send-email [{:keys [biff/secret] :as ctx} opts]
   (let [form-params (if-some [template-key (:template opts)]
                       (template template-key opts)
                       opts)]
-    (if (every? some? [(secret :mailersend/api-key)
-                       (secret :recaptcha/secret-key)
-                       site-key])
-      (send-mailersend ctx form-params)
+    (if (some? (secret :brevo/api-key))
+      (send-brevo ctx form-params)
       (send-console ctx form-params))))

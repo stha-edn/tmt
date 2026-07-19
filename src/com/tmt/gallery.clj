@@ -37,17 +37,16 @@
 
 (defn- category-section [{:keys [id title images]} idx]
   [:section {:id id :class (if (even? idx) "bg-white" "bg-gray-50")}
-   [:div {:class "max-w-6xl mx-auto px-8 py-16 scroll-mt-20"}
-    [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-600"} "Gallery"]
-    [:h2 {:class "mt-2 text-balance text-3xl font-bold text-gray-900"} title]
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24 scroll-mt-20"}
+    (shared/section-heading "Gallery" title)
     [:div {:class "mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4"}
      (map-indexed (fn [i src] (gallery-image src (str title " photo " (inc i)))) images)]]])
 
 (defn gallery-page [ctx]
   (ui/base
    ctx
-   (nav/navbar)
-   [:main
+    (nav/navbar ctx)
+    [:main
     (shared/hero-section
      {:badge "Take a Look"
       :title "Gallery"

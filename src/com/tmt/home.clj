@@ -14,9 +14,11 @@
    "link to the console. See config.edn."])
 
 (defn- section-image [src alt]
-  [:img {:src src
-         :alt alt
-         :class "aspect-video w-full rounded-3xl object-cover ring-1 ring-gray-900/5"}])
+  [:div {:class "relative"}
+   [:div {:class "absolute -bottom-2 -right-2 size-full rounded-3xl bg-brand-500/10 -z-10"}]
+   [:img {:src src
+          :alt alt
+          :class "aspect-video w-full rounded-3xl object-cover shadow-lg ring-1 ring-black/5"}]])
 
 (defn- hero-section []
   (shared/hero-section
@@ -32,15 +34,21 @@
 
 (defn- cta-banner [title href]
   [:a {:href href
-       :class (str "group block rounded-2xl bg-white p-6 text-center ring-1 ring-gray-900/5 shadow-sm "
-                   "transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:ring-brand-600/20")}
-   [:span {:class "inline-flex items-center gap-1.5 text-base font-semibold text-gray-900"}
+       :class (str "group relative block rounded-2xl bg-white p-6 text-center "
+                   "shadow-md ring-1 ring-gray-900/5 "
+                   "transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl "
+                   "hover:ring-brand-500/30 "
+                   "before:absolute before:inset-x-6 before:-top-px before:h-px "
+                   "before:bg-gradient-to-r before:from-transparent before:via-brand-500/60 before:to-transparent")}
+   [:div {:class "mx-auto mb-3 flex size-10 items-center justify-center rounded-xl bg-brand-50 ring-1 ring-brand-200/50"}
+    [:div {:class "size-5 rounded-full bg-brand-500/20"}]]
+   [:span {:class "inline-flex items-center gap-1.5 text-base font-semibold text-gray-900 group-hover:text-brand-700"}
     title
     (icons/arrow-icon)]])
 
 (defn- cta-banners []
   [:section {:class "bg-white"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-12 grid gap-6 sm:grid-cols-3"}
+   [:div {:class "max-w-6xl mx-auto px-8 py-12 md:py-16 grid gap-6 sm:grid-cols-3"}
     (cta-banner "Make a Reservation" "/reservations")
     (cta-banner "View the Rooms" "/rooms")
     (cta-banner "Latest Specials" "/specials")]])
@@ -48,18 +56,18 @@
 (defn- read-more [href]
   [:a {:href href
        :class (str "group mt-4 inline-flex items-center gap-1.5 text-sm font-semibold "
-                   "text-brand-600 hover:text-brand-800")}
+                   "text-brand-600 hover:text-brand-700 "
+                   "transition-colors duration-200")}
    "Read More"
    (icons/arrow-icon)])
 
 (defn- welcome-section []
   [:section {:class "bg-gray-50"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-16 grid gap-10 md:grid-cols-2 items-center"}
-    (section-image "/img/newengland0.jpg" "TM Guest Lodge exterior")
-    [:div
-     [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-600"} "Welcome"]
-     [:h2 {:class "mt-2 text-balance text-3xl font-bold text-gray-900"} "Welcome to TM Guest Lodge"]
-     [:p {:class "mt-4 text-pretty text-gray-600 leading-relaxed"}
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24 grid gap-10 md:grid-cols-2 items-center"}
+     (section-image "/img/newengland0.jpg" "TM Guest Lodge exterior")
+     [:div
+      (shared/section-heading "Welcome" "Welcome to TM Guest Lodge")
+     [:p {:class "mt-6 text-pretty text-gray-600 leading-relaxed md:text-lg"}
       (str "TM Guest Lodge, offering guests two locations from which to opt for, Globe Road and "
            "New England Road situated in strategic locations in Scottsville, Pietermaritzburg "
            "which are ideally suited for individuals, executives and family travel.")]
@@ -67,11 +75,10 @@
 
 (defn- tours-section []
   [:section {:class "bg-white"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-16 grid gap-10 md:grid-cols-2 items-center"}
-    [:div {:class "order-2 md:order-1"}
-     [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-600"} "Tours"]
-     [:h2 {:class "mt-2 text-balance text-3xl font-bold text-gray-900"} "Travel with TM Tours"]
-     [:p {:class "mt-4 text-pretty text-gray-600 leading-relaxed"}
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24 grid gap-10 md:grid-cols-2 items-center"}
+     [:div {:class "order-2 md:order-1"}
+      (shared/section-heading "Tours" "Travel with TM Tours")
+     [:p {:class "mt-6 text-pretty text-gray-600 leading-relaxed md:text-lg"}
       (str "The tour service started on a small scale as a response to a need to ferry school "
            "children from Imbali and Edendale to schools in the city. The service is beneficial "
            "to small, medium and large business enterprises as well as public institutions.")]
@@ -82,8 +89,8 @@
 (defn home-page [ctx]
   (ui/base
    ctx
-   (nav/navbar)
-   [:main
+    (nav/navbar ctx)
+    [:main
     (hero-section)
     (cta-banners)
     (welcome-section)

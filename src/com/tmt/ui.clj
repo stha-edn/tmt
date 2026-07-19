@@ -45,8 +45,8 @@
   (base
    ctx
    [:.min-h-screen.flex.flex-col
-    (nav/navbar)
-    [:main.flex-1
+     (nav/navbar ctx)
+     [:main.flex-1
      body]]))
 
 (defn on-error [{:keys [status ex] :as ctx}]

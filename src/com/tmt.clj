@@ -7,6 +7,7 @@
             [com.tmt.gallery :as gallery]
             [com.tmt.home :as home]
             [com.tmt.middleware :as mid]
+            [com.tmt.reservations :as reservations]
             [com.tmt.rooms :as rooms]
             [com.tmt.tours :as tours]
             [com.tmt.ui :as ui]
@@ -24,6 +25,7 @@
   [app/module
    (biff/authentication-module {})
    home/module
+   reservations/module
    rooms/module
    tours/module
    gallery/module

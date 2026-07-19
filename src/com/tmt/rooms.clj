@@ -38,8 +38,10 @@
    text])
 
 (defn- room-card [{:keys [name image alt bed capacity rate amenities]}]
-  [:div {:class (str "group flex flex-col overflow-hidden rounded-3xl bg-white ring-1 ring-gray-900/5 "
-                      "shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg")}
+  [:div {:class (str "group relative flex flex-col overflow-hidden rounded-3xl bg-white "
+                      "shadow-md ring-1 ring-gray-900/5 "
+                      "transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl")}
+   [:div {:class "absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-500 via-brand-400 to-brand-500"}]
    [:div {:class "relative aspect-[4/3] overflow-hidden"}
     [:img {:src image :alt alt
            :class "size-full object-cover transition-transform duration-300 group-hover:scale-105"}]
@@ -62,24 +64,19 @@
 
 (defn- rooms-grid-section []
   [:section {:class "bg-gray-50"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-16"}
-    [:div {:class "max-w-2xl"}
-     [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-600"} "Accommodation"]
-     [:h2 {:class "mt-2 text-balance text-3xl font-bold text-gray-900"} "Choose Your Room"]
-     [:p {:class "mt-4 text-pretty text-gray-600 leading-relaxed"}
-      "Every room comes with facilities to make our guests feel like royalty. Rates apply year-round and are subject to availability and change."]]
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24"}
+    (shared/section-heading "Accommodation" "Choose Your Room")
+    [:p {:class "mt-4 text-pretty text-gray-600 leading-relaxed"}
+     "Every room comes with facilities to make our guests feel like royalty. Rates apply year-round and are subject to availability and change."]
     [:div {:class "mt-10 grid gap-8 sm:grid-cols-2"}
      (map room-card rooms)]]])
 
 (defn- locations-section []
   [:section {:class "bg-white"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-16 grid gap-10 md:grid-cols-2 items-center"}
-    [:img {:src "/img/gallery/globe_gallery_3.JPG"
-           :alt "Balcony at TM Guest Lodge"
-           :class "aspect-video w-full rounded-3xl object-cover ring-1 ring-gray-900/5"}]
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24 grid gap-10 md:grid-cols-2 items-center"}
+    (shared/image-frame "/img/gallery/globe_gallery_3.JPG" "Balcony at TM Guest Lodge")
     [:div
-     [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-600"} "Two Locations"]
-     [:h2 {:class "mt-2 text-balance text-3xl font-bold text-gray-900"} "Globe Road & New England Road"]
+     (shared/section-heading "Two Locations" "Globe Road & New England Road")
      [:p {:class "mt-4 text-pretty text-gray-600 leading-relaxed"}
       (str "Both properties are situated in strategic, quiet locations in Scottsville, "
            "Pietermaritzburg, and offer the same room types and rate structure — so wherever "
@@ -102,8 +99,8 @@
 (defn rooms-page [ctx]
   (ui/base
    ctx
-   (nav/navbar)
-   [:main
+    (nav/navbar ctx)
+    [:main
     (shared/hero-section
      {:badge "Globe Road & New England Road"
       :title "Rooms & Rates"

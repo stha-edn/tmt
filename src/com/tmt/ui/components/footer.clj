@@ -1,4 +1,5 @@
-(ns com.tmt.ui.components.footer)
+(ns com.tmt.ui.components.footer
+  (:require [com.tmt.ui.icons :as icons]))
 
 (def ^:private explore-links
   [["Home" "/"]
@@ -8,53 +9,80 @@
    ["About" "/about"]
    ["Contact" "/contact"]])
 
-(defn- social-icon [path]
-  [:a
-   {:href "#"
-    :class (str "flex items-center justify-center size-9 rounded-full bg-gray-800 "
-                "transition-all duration-200 hover:bg-brand-600 hover:scale-110")}
-   [:svg
-    {:viewBox "0 0 24 24"
-     :xmlns "http://www.w3.org/2000/svg"
-     :aria-hidden "true"
-     :focusable "false"
-     :class "size-4"
-     :style {:display "block" :fill "currentcolor"}}
-    [:path {:d path}]]])
+(defn- social-icon [icon]
+  [:a {:href "#"
+       :class (str "flex items-center justify-center size-9 rounded-lg "
+                   "bg-white/10 text-white/50 "
+                   "transition-all duration-200 hover:bg-brand-600 hover:text-white hover:scale-110")}
+   (icon)])
 
 (defn- about-column []
-  [:div
-   [:h3 {:class "text-lg font-semibold text-white"} "TM Guest Lodge"]
-   [:p {:class "mt-3 text-sm leading-relaxed"}
-    "Globe and New England Road, Pietermaritzburg. Two locations, one standard of comfort."]])
+  [:div {:class "space-y-4"}
+   [:a {:href "/" :class "inline-flex items-center gap-2.5"}
+    [:div {:class "flex size-9 items-center justify-center rounded-xl bg-brand-600 text-white shadow-sm"}
+     (icons/house-icon)]
+    [:div
+     [:span {:class "block text-base font-bold text-white leading-tight"} "TM"]
+     [:span {:class "block text-xs font-medium text-white/60 leading-tight"} "Guest Lodge"]]]
+   [:p {:class "text-sm text-white/70 leading-relaxed max-w-xs"}
+    "Globe and New England Road, Scottsville, Pietermaritzburg. Two locations, one standard of comfort."]
+   [:div {:class "flex items-center gap-2 pt-1"}
+    (social-icon icons/facebook-icon)
+    (social-icon icons/twitter-icon)]])
 
-(defn- contact-column []
+(defn- quick-links []
   [:div
-   [:h4 {:class "text-sm font-semibold text-white uppercase tracking-wide"} "Contact"]
-   [:ul {:class "mt-3 list-none pl-0 my-0 space-y-2 text-sm"}
-    [:li "Globe Road: (033) 386 9139"]
-    [:li "New England Road: (033) 346 0177"]
-    [:li [:a {:href "mailto:info@tmtours.co.za" :class "hover:text-white"} "info@tmtours.co.za"]]]])
-
-(defn- explore-column []
-  [:div
-   [:h4 {:class "text-sm font-semibold text-white uppercase tracking-wide"} "Explore"]
-   [:ul {:class "mt-3 list-none pl-0 my-0 grid grid-cols-2 gap-2 text-sm"}
+   [:h4 {:class "text-sm font-semibold text-white uppercase tracking-wider"} "Explore"]
+   [:ul {:class "mt-4 space-y-3 list-none pl-0 my-0"}
     (for [[label href] explore-links]
-      [:li [:a {:href href :class "hover:text-white"} label]])]])
+      [:li [:a {:href href
+                :class "text-sm text-white/70 transition-colors duration-200 hover:text-white"} label]])]])
+
+(defn- contact-info []
+  [:div
+   [:h4 {:class "text-sm font-semibold text-white uppercase tracking-wider"} "Contact"]
+   [:ul {:class "mt-4 space-y-3 list-none pl-0 my-0"}
+    [:li
+     [:div {:class "flex items-start gap-2.5"}
+      [:span {:class "mt-0.5 shrink-0 text-brand-400"}
+       (icons/phone-icon)]
+      [:div
+       [:p {:class "text-sm text-white/60"} "Globe Road:"]
+       [:a {:href "tel:+27333869139"
+            :class "text-sm font-medium text-white hover:text-brand-300 transition-colors"} "(033) 386 9139"]]]]
+    [:li
+     [:div {:class "flex items-start gap-2.5"}
+      [:span {:class "mt-0.5 shrink-0 text-brand-400"}
+       (icons/phone-icon)]
+      [:div
+       [:p {:class "text-sm text-white/60"} "New England Road:"]
+       [:a {:href "tel:+27333460177"
+            :class "text-sm font-medium text-white hover:text-brand-300 transition-colors"} "(033) 346 0177"]]]]
+    [:li
+     [:div {:class "flex items-start gap-2.5"}
+      [:span {:class "mt-0.5 shrink-0 text-brand-400"}
+       (icons/mail-icon)]
+      [:a {:href "mailto:info@tmtours.co.za"
+           :class "text-sm font-medium text-white hover:text-brand-300 transition-colors"} "info@tmtours.co.za"]]]]])
 
 (defn- bottom-bar []
-  [:div {:class "border-t border-gray-800"}
+  [:div {:class "border-t border-white/10"}
    [:div {:class "max-w-6xl mx-auto px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4"}
-    [:p {:class "text-xs text-gray-500"} "© TM Guest Lodge. All rights reserved."]
-    [:div {:class "flex items-center gap-3"}
-     (social-icon "M22 12a10 10 0 10-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0022 12z")
-     (social-icon "M22 5.9c-.63.28-1.3.47-2 .56.72-.43 1.28-1.12 1.54-1.94-.67.4-1.42.68-2.22.84A3.48 3.48 0 0016.7 4c-1.94 0-3.5 1.57-3.5 3.5 0 .27.03.54.09.79A9.9 9.9 0 013 4.9a3.5 3.5 0 001.08 4.67c-.57-.02-1.1-.17-1.57-.43v.04c0 1.7 1.2 3.13 2.8 3.45-.3.08-.6.12-.92.12-.22 0-.44-.02-.65-.06a3.5 3.5 0 003.27 2.44A7.02 7.02 0 012 16.56 9.9 9.9 0 007.29 18c6.34 0 9.8-5.25 9.8-9.8 0-.15 0-.3-.01-.44A7 7 0 0022 5.9z")]]])
+    [:p {:class "text-xs text-white/40"} "© 2026 TM Guest Lodge. All rights reserved."]
+    [:a {:href "#"
+         :onclick "window.scrollTo({top:0,behavior:'smooth'});return false"
+         :class (str "group inline-flex items-center gap-1.5 text-xs text-white/40 "
+                     "hover:text-white transition-colors duration-200")}
+     "Back to top"
+     [:span {:class "inline-block transition-transform duration-200 group-hover:-translate-y-1"}
+       (icons/chevron-up-icon)]]]])
 
 (defn footer []
-  [:footer {:class "bg-gray-900 text-gray-300"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-12 grid gap-10 md:grid-cols-3"}
-    (about-column)
-    (contact-column)
-    (explore-column)]
-   (bottom-bar)])
+  [:footer {:class "bg-brand-900"}
+   [:div {:class "relative"}
+    [:div {:class "absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-500 via-brand-400 to-brand-500"}]
+    [:div {:class "max-w-6xl mx-auto px-8 py-16 grid gap-10 md:grid-cols-3"}
+     (about-column)
+     (quick-links)
+     (contact-info)]
+    (bottom-bar)]])

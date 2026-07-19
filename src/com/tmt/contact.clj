@@ -16,6 +16,7 @@
     :address "18 Globe Road, Scottsville, Pietermaritzburg"
     :phone "(033) 386 9139"
     :fax "(086) 656 5306"
+    :map-query "18+Globe+Road+Scottsville+Pietermaritzburg"
     :directions-jhb ["Exit the N3 at Market Road"
                       "Skip the first traffic lights; turn right at the second light (Washington Road)"
                       "Turn left onto Globe Road"
@@ -26,6 +27,7 @@
     :phone "(033) 346 0177"
     :alt-phone "(033) 346 0957"
     :fax "(033) 346 2428"
+    :map-query "69+New+England+Road+Scottsville+Pietermaritzburg"
     :directions-jhb ["Exit the N3 at New England Road"
                       "Turn right onto New England Road"
                       "At the first traffic light (Ridge Road), turn right into Sanders Road"
@@ -37,7 +39,7 @@
 
 (def ^:private email-disabled-notice
   [:.text-sm.mt-4.bg-brand-100.rounded.p-3
-   "Until you add API keys for MailerSend, we'll print enquiries to the console instead of emailing them. See config.edn."])
+   "Until you add a Brevo API key, we'll print enquiries to the console instead of emailing them. See config.edn."])
 
 (defn- text-field [{:keys [id label type required] :or {type "text"}}]
   [:div
@@ -84,10 +86,9 @@
 
 (defn- form-section [ctx]
   [:section {:class "bg-white"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-16 grid gap-12 lg:grid-cols-5"}
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24 grid gap-12 lg:grid-cols-5"}
     [:div {:class "lg:col-span-3"}
-     [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-600"} "Send a Message"]
-     [:h2 {:class "mt-2 text-balance text-3xl font-bold text-gray-900"} "Tell Us How We Can Help"]
+     (shared/section-heading "Send a Message" "Tell Us How We Can Help")
      (if (= (get-in ctx [:params :sent]) "true")
        [:div {:class "mt-6 rounded-2xl bg-brand-50 p-6 ring-1 ring-brand-600/10"}
         [:p {:class "font-semibold text-brand-800"} "Thanks — your message is on its way."]
@@ -111,8 +112,8 @@
   [:ul {:class "mt-2 list-none pl-0 my-0 space-y-1 text-sm text-gray-600"}
    (map-indexed (fn [i step] [:li (str (inc i) ". " step)]) items)])
 
-(defn- location-card [{:keys [name address phone alt-phone fax directions-jhb directions-durban]}]
-  [:div {:class "rounded-3xl bg-gray-50 p-6 ring-1 ring-gray-900/5"}
+(defn- location-card [{:keys [name address phone alt-phone fax map-query directions-jhb directions-durban]}]
+  [:div {:class "rounded-3xl bg-gray-50 p-6 ring-1 ring-gray-900/5 shadow-md"}
    [:div {:class "flex items-start gap-3"}
     (icons/pin-icon)
     [:div
@@ -122,6 +123,12 @@
     [:div [:span {:class "font-semibold"} "Tel: "] phone]
     (when alt-phone [:div [:span {:class "font-semibold"} "Alt: "] alt-phone])
     (when fax [:div [:span {:class "font-semibold"} "Fax: "] fax])]
+   [:div {:class "mt-4 aspect-video overflow-hidden rounded-xl ring-1 ring-black/5"}
+    [:iframe {:src (str "https://maps.google.com/maps?q=" map-query "&output=embed")
+              :width "100%" :height "100%"
+              :style {:border 0}
+              :allowfullscreen true
+              :loading "lazy"}]]
    [:details {:class "mt-4 group"}
     [:summary {:class "cursor-pointer text-sm font-semibold text-brand-600 hover:text-brand-800"}
      "Directions from Johannesburg / Durban"]
@@ -135,17 +142,16 @@
 
 (defn- locations-section []
   [:section {:class "bg-gray-50"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-16"}
-    [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-600"} "Find Us"]
-    [:h2 {:class "mt-2 text-balance text-3xl font-bold text-gray-900"} "Our Two Locations"]
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24"}
+    (shared/section-heading "Find Us" "Our Two Locations")
     [:div {:class "mt-8 grid gap-6 md:grid-cols-2"}
      (map location-card locations)]]])
 
 (defn contact-page [ctx]
   (ui/base
    ctx
-   (nav/navbar)
-   [:main
+    (nav/navbar ctx)
+    [:main
     (shared/hero-section
      {:badge "We'd Love to Hear From You"
       :title "Get in Touch"

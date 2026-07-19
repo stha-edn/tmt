@@ -31,41 +31,37 @@
 (defn- location-card [{:keys [name image alt description]} idx]
   (let [reversed (odd? idx)]
     [:div {:class "grid gap-10 md:grid-cols-2 items-center"}
-     [:img {:src image :alt alt
-            :class (str "aspect-video w-full rounded-3xl object-cover ring-1 ring-gray-900/5 "
-                        (if reversed "md:order-2" "md:order-1"))}]
+     [:div {:class (if reversed "md:order-2" "md:order-1")}
+      (shared/image-frame image alt)]
      [:div {:class (if reversed "md:order-1" "md:order-2")}
-      [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-600"} "Our Locations"]
-      [:h2 {:class "mt-2 text-balance text-3xl font-bold text-gray-900"} name]
+      (shared/section-heading "Our Locations" name)
       [:p {:class "mt-4 text-pretty text-gray-600 leading-relaxed"} description]]]))
 
 (defn- locations-section []
   [:section {:class "bg-white"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-16 flex flex-col gap-16"}
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24 flex flex-col gap-16"}
     (map-indexed (fn [idx loc] (location-card loc idx)) locations)]])
 ;; flex flex-col gap-16 replaces the previous space-y-16 on a non-flex container
 
 (defn- value-card [{:keys [title description]}]
-  [:div {:class (str "rounded-2xl bg-white p-6 ring-1 ring-gray-900/5 shadow-sm "
-                      "transition-all duration-200 hover:-translate-y-1 hover:shadow-lg")}
+  [:div {:class (str "rounded-2xl bg-white p-6 ring-1 ring-gray-900/5 "
+                      "shadow-md transition-all duration-300 "
+                      "hover:-translate-y-1.5 hover:shadow-xl")}
    [:h3 {:class "text-base font-bold text-gray-900"} title]
    [:p {:class "mt-2 text-sm text-gray-600 leading-relaxed"} description]])
 
 (defn- values-section []
   [:section {:class "bg-gray-50"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-16"}
-    [:div {:class "max-w-2xl"}
-     [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-600"} "Why Guests Choose Us"]
-     [:h2 {:class "mt-2 text-balance text-3xl font-bold text-gray-900"} "What We Stand For"]]
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24"}
+    (shared/section-heading "Why Guests Choose Us" "What We Stand For")
     [:div {:class "mt-10 grid gap-6 sm:grid-cols-3"}
      (map value-card values)]]])
 
 (defn- tours-tie-in-section []
   [:section {:class "bg-white"}
-   [:div {:class "max-w-6xl mx-auto px-8 py-16 grid gap-10 md:grid-cols-2 items-center"}
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24 grid gap-10 md:grid-cols-2 items-center"}
     [:div
-     [:p {:class "text-sm font-semibold uppercase tracking-wide text-brand-600"} "One Family, Two Services"]
-     [:h2 {:class "mt-2 text-balance text-3xl font-bold text-gray-900"} "TM Tours"]
+     (shared/section-heading "One Family, Two Services" "TM Tours")
      [:p {:class "mt-4 text-pretty text-gray-600 leading-relaxed"}
       (str "Alongside the lodge, TM Tours grew out of a small service ferrying school "
            "children from Imbali and Edendale to schools in the city. Today that same "
@@ -76,9 +72,7 @@
                       "text-brand-600 hover:text-brand-800")}
       "Explore Our Tours"
       (icons/arrow-icon)]]
-    [:img {:src "/img/gallery/tours_gallery_1.JPG"
-           :alt "TM Tours fleet"
-           :class "aspect-video w-full rounded-3xl object-cover ring-1 ring-gray-900/5"}]]])
+    (shared/image-frame "/img/gallery/tours_gallery_1.JPG" "TM Tours fleet")]])
 
 (defn- cta-section []
   (shared/cta-section
@@ -90,8 +84,8 @@
 (defn about-page [ctx]
   (ui/base
    ctx
-   (nav/navbar)
-   [:main
+    (nav/navbar ctx)
+    [:main
     (shared/hero-section
      {:badge "Pietermaritzburg, KwaZulu-Natal"
       :title "About TM Guest Lodge"
