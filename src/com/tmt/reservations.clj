@@ -1,6 +1,7 @@
 (ns com.tmt.reservations
-  (:require [com.tmt.ui :as ui]
+  (:require             [com.tmt.ui :as ui]
             [com.tmt.ui.icons :as icons]
+            [com.tmt.ui.illustrations :as illust]
             [com.tmt.ui.components.shared :as shared]
             [com.tmt.ui.components.nav :as nav]
             [com.tmt.ui.components.footer :as footer]))
@@ -12,9 +13,9 @@
     :description "Call us directly or send an email — we'll get you sorted right away."}))
 
 (defn- contact-card [{:keys [location address phone alt-phone fax map-query email]}]
-  [:div {:class (str "rounded-2xl bg-white p-6 ring-1 ring-gray-900/5 "
-                      "shadow-md transition-all duration-300 "
-                      "hover:-translate-y-1.5 hover:shadow-xl")}
+  [:div {:class (str "rounded-2xl bg-white p-6 "
+                      "shadow-neu transition-all duration-300 "
+                      "hover:-translate-y-1 hover:shadow-neu-hover")}
    [:div {:class "flex items-start gap-3"}
     (icons/pin-icon)
     [:div
@@ -81,18 +82,12 @@
       "Include your preferred room type, check-in date, length of stay and any special requests — we'll get back to you as soon as possible."]
      [:a {:href "mailto:info@tmtours.co.za?subject=Room enquiry"
           :class (str "group mt-6 inline-flex items-center gap-2 rounded-full bg-brand-600 "
-                      "px-6 py-3 text-sm font-semibold text-white shadow-sm "
+                      "px-6 py-3 text-sm font-semibold text-white shadow-neu-sm "
                       "transition-colors duration-200 hover:bg-brand-500 active:bg-brand-700")}
       (icons/mail-icon)
       "Send an Email"
       (icons/arrow-icon)]]
-    [:div {:class "rounded-2xl bg-white p-6 ring-1 ring-gray-900/5 shadow-md"}
-     [:h3 {:class "text-sm font-semibold uppercase tracking-wide text-gray-500"} "What to Include"]
-     [:ul {:class "mt-4 space-y-2"}
-      (for [item ["Room type preferred" "Check-in date" "Length of stay" "Number of guests" "Special requests"]]
-        [:li {:class "flex items-center gap-2 text-sm text-gray-700"}
-         (icons/check-icon)
-         item])]]]])
+    (illust/house-illustration)]])
 
 (defn- cta-section []
   (shared/cta-section

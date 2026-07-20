@@ -1,24 +1,32 @@
 (ns com.tmt.ui.components.shared
   (:require [com.tmt.ui.icons :as icons]))
 
-(defn primary-button [label attrs]
-  [:a (merge
-       {:class (str "group inline-flex items-center gap-1.5 rounded-full bg-white text-brand-800 "
-                     "px-6 py-3 text-sm font-semibold shadow-sm transition-colors hover:bg-brand-50 "
-                     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white "
-                     "focus-visible:ring-offset-2 focus-visible:ring-offset-brand-800")}
-       attrs)
-   label
-   (icons/arrow-icon)])
+(defn primary-button
+  ([label attrs] (primary-button label attrs nil))
+  ([label attrs icon-fn]
+   [:a (merge
+         {:class (str "group inline-flex items-center gap-1.5 rounded-full bg-white text-brand-800 "
+                       "px-6 py-3 text-sm font-semibold shadow-neu-sm transition-colors hover:bg-brand-50 "
+                       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white "
+                       "focus-visible:ring-offset-2 focus-visible:ring-offset-brand-800")}
+        attrs)
+    (when icon-fn (icon-fn))
+    label
+    (icons/arrow-icon)]))
 
-(defn secondary-button [label attrs]
-  [:a (merge
-       {:class (str "rounded-full ring-1 ring-inset ring-white/60 px-6 py-3 text-sm font-semibold "
-                     "transition-colors hover:bg-white/10 focus-visible:outline-none "
-                     "focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 "
-                     "focus-visible:ring-offset-brand-800")}
-       attrs)
-   label])
+(defn secondary-button
+  ([label attrs] (secondary-button label attrs nil))
+  ([label attrs icon-fn]
+   [:a (merge
+         {:class (str "group inline-flex items-center gap-1.5 rounded-full ring-1 ring-inset ring-white/60 "
+                       "px-6 py-3 text-sm font-semibold "
+                       "transition-colors hover:bg-white/10 focus-visible:outline-none "
+                       "focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 "
+                       "focus-visible:ring-offset-brand-800")}
+        attrs)
+    (when icon-fn (icon-fn))
+    label
+    (icons/arrow-icon)]))
 
 (defn hero-section [{:keys [id badge title description children section-class before py]
                      :or {py "py-20 md:py-28"}}]

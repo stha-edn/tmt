@@ -3,6 +3,7 @@
             [com.tmt.middleware :as mid]
             [com.tmt.ui :as ui]
             [com.tmt.ui.icons :as icons]
+            [com.tmt.ui.illustrations :as illust]
             [com.tmt.ui.components.shared :as shared]
             [com.tmt.ui.components.nav :as nav]
             [com.tmt.ui.components.footer :as footer]
@@ -13,12 +14,8 @@
    "Until you add API keys for MailerSend and reCAPTCHA, we'll print your sign-up "
    "link to the console. See config.edn."])
 
-(defn- section-image [src alt]
-  [:div {:class "relative"}
-   [:div {:class "absolute -bottom-2 -right-2 size-full rounded-3xl bg-brand-500/10 -z-10"}]
-   [:img {:src src
-          :alt alt
-          :class "aspect-video w-full rounded-3xl object-cover shadow-lg ring-1 ring-black/5"}]])
+
+
 
 (defn- hero-section []
   (shared/hero-section
@@ -28,20 +25,19 @@
     :description "Facilities to make our guests feel like royalty and we guarantee a memorable stay."
     :py "py-24"
     :before [:canvas#cta-arrow-canvas {:class "absolute inset-0 pointer-events-none z-40"}]
-    :children [:div {:class "mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"}
-               (shared/primary-button "Book Your Stay" {:href "/reservations" :id "cta-arrow-target"})
-               (shared/secondary-button "Explore Tours" {:href "/tours"})]}))
+     :children [:div {:class "mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"}
+                (shared/primary-button "Book Your Stay" {:href "/reservations" :id "cta-arrow-target"} icons/house-icon)
+                (shared/secondary-button "Explore Tours" {:href "/tours"} icons/pin-icon)]}))
 
-(defn- cta-banner [title href]
+(defn- cta-banner [title href icon-fn]
   [:a {:href href
        :class (str "group relative block rounded-2xl bg-white p-6 text-center "
-                   "shadow-md ring-1 ring-gray-900/5 "
-                   "transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl "
-                   "hover:ring-brand-500/30 "
+                   "shadow-neu-sm "
+                   "transition-all duration-300 hover:-translate-y-1 hover:shadow-neu-hover "
                    "before:absolute before:inset-x-6 before:-top-px before:h-px "
                    "before:bg-gradient-to-r before:from-transparent before:via-brand-500/60 before:to-transparent")}
-   [:div {:class "mx-auto mb-3 flex size-10 items-center justify-center rounded-xl bg-brand-50 ring-1 ring-brand-200/50"}
-    [:div {:class "size-5 rounded-full bg-brand-500/20"}]]
+   [:div {:class "mx-auto mb-3 flex size-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600"}
+    (icon-fn)]
    [:span {:class "inline-flex items-center gap-1.5 text-base font-semibold text-gray-900 group-hover:text-brand-700"}
     title
     (icons/arrow-icon)]])
@@ -49,9 +45,9 @@
 (defn- cta-banners []
   [:section {:class "bg-white"}
    [:div {:class "max-w-6xl mx-auto px-8 py-12 md:py-16 grid gap-6 sm:grid-cols-3"}
-    (cta-banner "Make a Reservation" "/reservations")
-    (cta-banner "View the Rooms" "/rooms")
-    (cta-banner "Latest Specials" "/specials")]])
+    (cta-banner "Make a Reservation" "/reservations" icons/house-icon)
+    (cta-banner "View the Rooms" "/rooms" icons/bed-icon)
+    (cta-banner "Latest Specials" "/specials" icons/tag-icon)]])
 
 (defn- read-more [href]
   [:a {:href href
@@ -64,7 +60,7 @@
 (defn- welcome-section []
   [:section {:class "bg-gray-50"}
    [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24 grid gap-10 md:grid-cols-2 items-center"}
-     (section-image "/img/newengland0.jpg" "TM Guest Lodge exterior")
+       (illust/welcome-illustration)
      [:div
       (shared/section-heading "Welcome" "Welcome to TM Guest Lodge")
      [:p {:class "mt-6 text-pretty text-gray-600 leading-relaxed md:text-lg"}
@@ -84,7 +80,7 @@
            "to small, medium and large business enterprises as well as public institutions.")]
      (read-more "/tours")]
     [:div {:class "order-1 md:order-2"}
-     (section-image "/img/newengland1.jpg" "TM Tours vehicle")]]])
+           (illust/travel-illustration)]]])
 
 (defn home-page [ctx]
   (ui/base

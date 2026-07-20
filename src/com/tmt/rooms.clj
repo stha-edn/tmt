@@ -39,8 +39,8 @@
 
 (defn- room-card [{:keys [name image alt bed capacity rate amenities]}]
   [:div {:class (str "group relative flex flex-col overflow-hidden rounded-3xl bg-white "
-                      "shadow-md ring-1 ring-gray-900/5 "
-                      "transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl")}
+                      "shadow-neu "
+                      "transition-all duration-300 hover:-translate-y-1 hover:shadow-neu-hover")}
    [:div {:class "absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-500 via-brand-400 to-brand-500"}]
    [:div {:class "relative aspect-[4/3] overflow-hidden"}
     [:img {:src image :alt alt
@@ -82,10 +82,10 @@
            "Pietermaritzburg, and offer the same room types and rate structure — so wherever "
            "you stay, you get the same standard of comfort.")]
      [:dl {:class "mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2"}
-      [:div {:class "rounded-2xl bg-gray-50 p-4 ring-1 ring-gray-900/5"}
-       [:dt {:class "text-sm font-semibold text-gray-900"} "Globe Road"]
-       [:dd {:class "mt-1 text-sm text-gray-600"} "(033) 386 9139"]]
-      [:div {:class "rounded-2xl bg-gray-50 p-4 ring-1 ring-gray-900/5"}
+       [:div {:class "rounded-2xl bg-gray-50 p-4 shadow-neu-sm"}
+        [:dt {:class "text-sm font-semibold text-gray-900"} "Globe Road"]
+        [:dd {:class "mt-1 text-sm text-gray-600"} "(033) 386 9139"]]
+       [:div {:class "rounded-2xl bg-gray-50 p-4 shadow-neu-sm"}
        [:dt {:class "text-sm font-semibold text-gray-900"} "New England Road"]
        [:dd {:class "mt-1 text-sm text-gray-600"} "(033) 346 0177"]]]]]])
 

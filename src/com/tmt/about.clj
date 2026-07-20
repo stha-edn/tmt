@@ -1,6 +1,7 @@
 (ns com.tmt.about
-  (:require [com.tmt.ui :as ui]
+  (:require             [com.tmt.ui :as ui]
             [com.tmt.ui.icons :as icons]
+            [com.tmt.ui.illustrations :as illust]
             [com.tmt.ui.components.shared :as shared]
             [com.tmt.ui.components.nav :as nav]
             [com.tmt.ui.components.footer :as footer]))
@@ -44,9 +45,9 @@
 ;; flex flex-col gap-16 replaces the previous space-y-16 on a non-flex container
 
 (defn- value-card [{:keys [title description]}]
-  [:div {:class (str "rounded-2xl bg-white p-6 ring-1 ring-gray-900/5 "
-                      "shadow-md transition-all duration-300 "
-                      "hover:-translate-y-1.5 hover:shadow-xl")}
+  [:div {:class (str "rounded-2xl bg-white p-6 "
+                      "shadow-neu transition-all duration-300 "
+                      "hover:-translate-y-1 hover:shadow-neu-hover")}
    [:h3 {:class "text-base font-bold text-gray-900"} title]
    [:p {:class "mt-2 text-sm text-gray-600 leading-relaxed"} description]])
 
@@ -72,7 +73,7 @@
                       "text-brand-600 hover:text-brand-800")}
       "Explore Our Tours"
       (icons/arrow-icon)]]
-    (shared/image-frame "/img/gallery/tours_gallery_1.JPG" "TM Tours fleet")]])
+         (illust/travel-illustration)]])
 
 (defn- cta-section []
   (shared/cta-section

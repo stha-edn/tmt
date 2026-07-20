@@ -3,6 +3,7 @@
             [com.tmt.email :as email]
             [com.tmt.ui :as ui]
             [com.tmt.ui.icons :as icons]
+            [com.tmt.ui.illustrations :as illust]
             [com.tmt.ui.components.shared :as shared]
             [com.tmt.ui.components.nav :as nav]
             [com.tmt.ui.components.footer :as footer]
@@ -45,9 +46,9 @@
   [:div
    [:label {:for id :class "block text-sm font-medium text-gray-700"} label]
    [:input {:id id :name id :type type :required required
-            :class (str "mt-1.5 block w-full rounded-lg border-0 bg-white px-3.5 py-2.5 text-sm "
-                        "text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 "
-                        "focus:ring-2 focus:ring-inset focus:ring-brand-600")}]])
+             :class (str "mt-1.5 block w-full rounded-lg border-0 bg-white px-3.5 py-2.5 text-sm "
+                         "text-gray-900 shadow-neu-inset placeholder:text-gray-400 "
+                         "focus:shadow-neu")}]])
 
 (defn- contact-form [{:keys [params]}]
   (biff/form
@@ -57,23 +58,23 @@
     (text-field {:id "email" :label "Email" :type "email" :required true})]
    [:div
     [:label {:for "category" :class "block text-sm font-medium text-gray-700"} "Category"]
-    [:select {:id "category" :name "category"
-              :class (str "mt-1.5 block w-full rounded-lg border-0 bg-white px-3.5 py-2.5 text-sm "
-                          "text-gray-900 ring-1 ring-inset ring-gray-300 "
-                          "focus:ring-2 focus:ring-inset focus:ring-brand-600")}
-     (for [c categories]
-       [:option {:value c} c])]]
+     [:select {:id "category" :name "category"
+               :class (str "mt-1.5 block w-full rounded-lg border-0 bg-white px-3.5 py-2.5 text-sm "
+                           "text-gray-900 shadow-neu-inset "
+                           "focus:shadow-neu")}
+      (for [c categories]
+        [:option {:value c} c])]]
    (text-field {:id "subject" :label "Subject"})
    [:div
     [:label {:for "message" :class "block text-sm font-medium text-gray-700"} "Message"]
     [:textarea {:id "message" :name "message" :rows 5 :required true
                 :class (str "mt-1.5 block w-full rounded-lg border-0 bg-white px-3.5 py-2.5 text-sm "
-                            "text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 "
-                            "focus:ring-2 focus:ring-inset focus:ring-brand-600")}]]
+                            "text-gray-900 shadow-neu-inset placeholder:text-gray-400 "
+                            "focus:shadow-neu")}]]
    [:button {:type "submit"
-             :class (str "group inline-flex items-center gap-1.5 rounded-full bg-brand-600 "
-                         "px-6 py-3 text-sm font-semibold text-white shadow-sm "
-                         "transition-colors duration-200 hover:bg-brand-500 active:bg-brand-700")}
+              :class (str "group inline-flex items-center gap-1.5 rounded-full bg-brand-600 "
+                          "px-6 py-3 text-sm font-semibold text-white shadow-neu-sm "
+                          "transition-colors duration-200 hover:bg-brand-500 active:bg-brand-700")}
     "Send Message"
     (icons/arrow-icon)]
    (when-some [error (:error params)]
@@ -90,30 +91,31 @@
     [:div {:class "lg:col-span-3"}
      (shared/section-heading "Send a Message" "Tell Us How We Can Help")
      (if (= (get-in ctx [:params :sent]) "true")
-       [:div {:class "mt-6 rounded-2xl bg-brand-50 p-6 ring-1 ring-brand-600/10"}
+        [:div {:class "mt-6 rounded-2xl bg-brand-50 p-6 shadow-neu-sm"}
         [:p {:class "font-semibold text-brand-800"} "Thanks — your message is on its way."]
         [:p {:class "mt-1 text-sm text-gray-600"} "We'll be in touch as soon as we can."]]
        [:div {:class "mt-6"} (contact-form ctx)])]
-    [:div {:class "lg:col-span-2 space-y-4"}
-     [:div {:class "rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-900/5"}
-      [:h3 {:class "text-sm font-semibold uppercase tracking-wide text-gray-500"} "Email"]
+     [:div {:class "lg:col-span-2 space-y-4"}
+      [:div {:class "rounded-2xl bg-gray-50 p-6 shadow-neu-sm"}
+       [:h3 {:class "text-sm font-semibold uppercase tracking-wide text-gray-500"} "Email"]
       [:p {:class "mt-2 text-sm"} [:a {:href "mailto:info@tmtours.co.za" :class "text-brand-600 hover:text-brand-800"} "info@tmtours.co.za"]]
       [:p {:class "mt-1 text-sm"} [:a {:href "mailto:mafika@tmtours.co.za" :class "text-brand-600 hover:text-brand-800"} "mafika@tmtours.co.za"]]]
-     [:div {:class "rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-900/5"}
-      [:h3 {:class "text-sm font-semibold uppercase tracking-wide text-gray-500"} "Phone"]
+      [:div {:class "rounded-2xl bg-gray-50 p-6 shadow-neu-sm"}
+       [:h3 {:class "text-sm font-semibold uppercase tracking-wide text-gray-500"} "Phone"]
       [:p {:class "mt-2 text-sm text-gray-700"} "Globe Road: (033) 386 9139"]
       [:p {:class "mt-1 text-sm text-gray-700"} "New England Road: (033) 346 0177"]]
-     [:div {:class "rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-900/5"}
-      [:h3 {:class "text-sm font-semibold uppercase tracking-wide text-gray-500"} "Follow Us"]
-      [:p {:class "mt-2 text-sm text-gray-700"} "Facebook & Twitter: @tmtours"]
-      [:p {:class "mt-1 text-sm text-gray-700"} "Skype: tmtours"]]]]])
+      [:div {:class "rounded-2xl bg-gray-50 p-6 shadow-neu-sm"}
+       [:h3 {:class "text-sm font-semibold uppercase tracking-wide text-gray-500"} "Follow Us"]
+       [:p {:class "mt-2 text-sm text-gray-700"} "Facebook & Twitter: @tmtours"]
+       [:p {:class "mt-1 text-sm text-gray-700"} "Skype: tmtours"]]
+       (illust/map-illustration)]]])
 
 (defn- directions-list [items]
   [:ul {:class "mt-2 list-none pl-0 my-0 space-y-1 text-sm text-gray-600"}
    (map-indexed (fn [i step] [:li (str (inc i) ". " step)]) items)])
 
 (defn- location-card [{:keys [name address phone alt-phone fax map-query directions-jhb directions-durban]}]
-  [:div {:class "rounded-3xl bg-gray-50 p-6 ring-1 ring-gray-900/5 shadow-md"}
+  [:div {:class "rounded-3xl bg-gray-50 p-6 shadow-neu"}
    [:div {:class "flex items-start gap-3"}
     (icons/pin-icon)
     [:div

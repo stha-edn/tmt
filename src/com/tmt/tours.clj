@@ -1,6 +1,7 @@
 (ns com.tmt.tours
-  (:require [com.tmt.ui :as ui]
+  (:require             [com.tmt.ui :as ui]
             [com.tmt.ui.icons :as icons]
+            [com.tmt.ui.illustrations :as illust]
             [com.tmt.ui.components.shared :as shared]
             [com.tmt.ui.components.nav :as nav]
             [com.tmt.ui.components.footer :as footer]))
@@ -39,8 +40,8 @@
 
 (defn- tour-card [{:keys [name image alt duration description]}]
   [:div {:class (str "group relative flex flex-col overflow-hidden rounded-3xl bg-white "
-                      "shadow-md ring-1 ring-gray-900/5 "
-                      "transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl")}
+                      "shadow-neu "
+                      "transition-all duration-300 hover:-translate-y-1 hover:shadow-neu-hover")}
    [:div {:class "absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-500 via-brand-400 to-brand-500"}]
    [:div {:class "relative aspect-[4/3] overflow-hidden"}
     [:img {:src image :alt alt
@@ -71,11 +72,11 @@
      [:ul {:class "mt-6 space-y-3 list-none pl-0 my-0"}
       (for [t half-day-tours]
         [:li {:class "flex items-center gap-2 text-gray-700"} (icons/check-icon) t])]]
-    (shared/image-frame "/img/rooms/temp_room_3.jpg" "TM Guest Lodge, a comfortable base for half-day tours")]])
+        (illust/map-illustration)]])
 
 (defn- more-ways-card [{:keys [title description]}]
-  [:div {:class (str "rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-900/5 transition-all duration-300 "
-                      "hover:-translate-y-1.5 hover:shadow-xl hover:bg-white")}
+  [:div {:class (str "rounded-2xl bg-gray-50 p-6 shadow-neu-sm transition-all duration-300 "
+                      "hover:-translate-y-1 hover:shadow-neu-hover hover:bg-white")}
    [:h3 {:class "text-base font-bold text-gray-900"} title]
    [:p {:class "mt-2 text-sm text-gray-600 leading-relaxed"} description]])
 
@@ -89,9 +90,9 @@
 (defn- fleet-section []
   [:section {:class "bg-white"}
    [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24 grid gap-10 md:grid-cols-2 items-center"}
-    (shared/image-frame "/img/gallery/tours_gallery_1.JPG" "The TM Tours fleet of minibuses and coaches")
-    [:div
-     (shared/section-heading "Our Fleet" "Safe, Reliable, Professional")
+      (illust/nature-illustration)
+     [:div
+      (shared/section-heading "Our Fleet" "Safe, Reliable, Professional")
      [:p {:class "mt-4 text-pretty text-gray-600 leading-relaxed"}
       (str "Every trip is run with safe, well-maintained vehicles and licensed, trained "
            "drivers who put customer service first — helping businesses and institutions "
@@ -104,9 +105,9 @@
 (defn- history-section []
   [:section {:class "bg-white"}
    [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24 grid gap-10 md:grid-cols-2 items-center"}
-    (shared/image-frame "/img/gallery/tours_gallery_2.JPG" "TM Tours vehicle detail")
-    [:div
-     (shared/section-heading "Our Story" "From School Runs to a Full Touring Service")
+      (illust/travel-illustration)
+     [:div
+      (shared/section-heading "Our Story" "From School Runs to a Full Touring Service")
      [:p {:class "mt-4 text-pretty text-gray-600 leading-relaxed"}
       (str "TM Tours started on a small scale, ferrying school children from Imbali and "
            "Edendale to schools in the city. That same commitment to reliability now serves "

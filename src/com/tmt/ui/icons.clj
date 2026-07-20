@@ -63,7 +63,7 @@
          :xmlns "http://www.w3.org/2000/svg"
          :aria-hidden "true"
          :focusable "false"
-         :class "size-4 shrink-0 text-gray-400"
+         :class "size-4 shrink-0"
          :style {:display "block" :fill "none" :stroke "currentcolor" :stroke-width "1.75"}}
    [:path {:stroke-linecap "round" :stroke-linejoin "round"
            :d "M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6M3 18v2M21 18v2M3 12V7a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v3M13 9h6a2 2 0 0 1 2 2v1"}]])
@@ -73,7 +73,7 @@
          :xmlns "http://www.w3.org/2000/svg"
          :aria-hidden "true"
          :focusable "false"
-         :class "size-4 shrink-0 text-gray-400"
+         :class "size-4 shrink-0"
          :style {:display "block" :fill "none" :stroke "currentcolor" :stroke-width "1.75"}}
    [:path {:stroke-linecap "round" :stroke-linejoin "round"
            :d "M17 20v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1M15 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM21 20v-1a4 4 0 0 0-3-3.87M15.5 5.13A3 3 0 0 1 18 8a3 3 0 0 1-1.28 2.46"}]])
@@ -145,3 +145,14 @@
    [:path {:d "M4 6H20"}]
    [:path {:d "M4 12H20"}]
    [:path {:d "M4 18H20"}]])
+
+(defn tag-icon []
+  [:svg {:viewBox "0 0 24 24" :fill "none" :class "size-5"
+         :style {:display "block" :stroke "currentcolor" :stroke-width "2" :stroke-linecap "round" :stroke-linejoin "round"}}
+   [:path {:d "M9 5H5v4l10 10 4-4L9 5z"}]
+   [:circle {:cx "7.5" :cy "7.5" :r "1.5" :fill "currentcolor"}]])
+
+(defn star-icon []
+  [:svg {:viewBox "0 0 24 24" :fill "none" :class "size-5"
+         :style {:display "block" :stroke "currentcolor" :stroke-width "2" :stroke-linecap "round" :stroke-linejoin "round"}}
+   [:path {:d "M12 2l3 6.5 7 .5-5.3 5 1.3 7-6-3.5L6 21l1.3-7L2 9l7-.5L12 2z"}]])
