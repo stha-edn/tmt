@@ -82,6 +82,34 @@
     :children [(shared/primary-button "View the Rooms" {:href "/rooms"})
                (shared/secondary-button "Get in Touch" {:href "/contact"})]}))
 
+(def ^:private testimonials
+  [{:quote "Clean, comfortable rooms and the staff were incredibly welcoming. Felt right at home from the moment I arrived."
+    :author "Thandi M."
+    :location "Durban"}
+   {:quote "Perfect location for exploring Pietermaritzburg. The self-catering unit had everything we needed for a week-long stay."
+    :author "David K."
+    :location "Johannesburg"}
+   {:quote "I stay here every time I'm in town for work. Consistent quality, great value, and the team always remembers my preferences."
+    :author "Nosipho Z."
+    :location "Cape Town"}])
+
+(defn- testimonials-section []
+  [:section {:class "bg-white"}
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24"}
+    (shared/section-heading "Guest Reviews" "What Our Guests Say")
+    [:div {:class "mt-10 grid gap-6 md:grid-cols-3"}
+     (for [t testimonials]
+       [:div {:class (str "relative flex flex-col rounded-2xl bg-gray-50 p-6 shadow-neu-sm "
+                          "transition-all duration-300 hover:-translate-y-1 hover:shadow-neu-hover")}
+        [:div {:class "flex gap-1 mb-3"}
+         (for [_ (range 5)]
+           (icons/star-icon))]
+        [:blockquote {:class "flex-1 text-sm text-gray-600 leading-relaxed"}
+         "\" " (:quote t) " \""]
+        [:div {:class "mt-4 pt-3 border-t border-gray-100"}
+         [:p {:class "text-sm font-semibold text-gray-900"} (:author t)]
+         [:p {:class "text-xs text-gray-500"} (:location t)]]])]]])
+
 (defn about-page [ctx]
   (ui/base
    ctx
@@ -94,6 +122,7 @@
                         "commitment to looking after people.")})
     (locations-section)
     (values-section)
+    (testimonials-section)
     (tours-tie-in-section)
     (cta-section)]
    (footer/footer)))

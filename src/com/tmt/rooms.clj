@@ -55,11 +55,15 @@
        [:span {:class "flex items-center gap-1.5"} (icons/users-icon) capacity])]
     [:ul {:class "mt-4 grid grid-cols-1 gap-2 pl-0 list-none my-0 sm:grid-cols-2"}
      (map amenity-pill amenities)]
-    [:div {:class "mt-6 pt-4 border-t border-gray-100"}
+    [:div {:class "mt-6 pt-4 border-t border-gray-100 flex flex-wrap gap-2"}
+     [:a {:href "/reservations"
+          :class (str "inline-flex items-center gap-1 rounded-full bg-brand-600 px-4 py-2 "
+                      "text-xs font-semibold text-white transition-colors hover:bg-brand-500")}
+      "Book Now"]
      [:a {:href (str "mailto:info@tmtours.co.za?subject=" (java.net.URLEncoder/encode (str "Room enquiry: " name) "UTF-8"))
-          :class (str "group/link inline-flex items-center gap-1.5 text-sm font-semibold "
+          :class (str "group/link inline-flex items-center gap-1.5 text-xs font-semibold "
                       "text-brand-600 hover:text-brand-800")}
-      "Enquire about this room"
+      "Enquire"
       (icons/arrow-icon)]]]])
 
 (defn- rooms-grid-section []
@@ -94,7 +98,11 @@
    {:title "Ready to Book Your Stay?"
     :description "Send us your preferred room type, check-in date and length of stay, and we'll take it from there."
     :children [(shared/primary-button "Make a Reservation" {:href "/reservations"})
-               (shared/secondary-button "info@tmtours.co.za" {:href "mailto:info@tmtours.co.za"})]}))
+               [:a {:href "https://wa.me/27333869139" :target "_blank" :rel "noopener noreferrer"
+                    :class (str "inline-flex items-center gap-1.5 rounded-full bg-green-500 "
+                                "px-6 py-3 text-sm font-semibold text-white shadow-neu-sm "
+                                "transition-colors duration-200 hover:bg-green-600")}
+                "WhatsApp Us"]]}))
 
 (defn rooms-page [ctx]
   (ui/base

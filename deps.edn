@@ -11,11 +11,15 @@
  :aliases
  {:dev {:extra-deps {com.biffweb/tasks {:git/url "https://github.com/jacobobryant/biff", :git/sha "fef3b44", :git/tag "v1.9.1", :deps/root "libs/tasks"}}
         :extra-paths ["dev" "test"]
-        :jvm-opts ["-XX:-OmitStackTraceInFastThrow"
-                   "-XX:+CrashOnOutOfMemoryError"
-                   "-Dbiff.env.BIFF_PROFILE=dev"]
-        :main-opts ["-m" "com.biffweb.task-runner" "tasks/tasks"]}
-  :prod {:jvm-opts ["-XX:-OmitStackTraceInFastThrow"
+         :jvm-opts ["-XX:-OmitStackTraceInFastThrow"
                     "-XX:+CrashOnOutOfMemoryError"
-                    "-Dbiff.env.BIFF_PROFILE=prod"]
+                    "--sun-misc-unsafe-memory-access=allow"
+                    "--enable-native-access=ALL-UNNAMED"
+                    "-Dbiff.env.BIFF_PROFILE=dev"]
+         :main-opts ["-m" "com.biffweb.task-runner" "tasks/tasks"]}
+   :prod {:jvm-opts ["-XX:-OmitStackTraceInFastThrow"
+                     "-XX:+CrashOnOutOfMemoryError"
+                     "--sun-misc-unsafe-memory-access=allow"
+                     "--enable-native-access=ALL-UNNAMED"
+                     "-Dbiff.env.BIFF_PROFILE=prod"]
          :main-opts ["-m" "com.tmt"]}}}

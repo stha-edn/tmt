@@ -6,6 +6,7 @@
             [ring.middleware.anti-forgery :as csrf]
             [ring.util.response :as ring-response]
             [com.tmt.ui.components.nav :as nav]
+            [com.tmt.ui.icons :as icons]
             [rum.core :as rum]))
 
 (defn static-path [path]
@@ -39,7 +40,14 @@
                                        [:script {:src "https://www.google.com/recaptcha/api.js"
                                                  :async "async" :defer "defer"}])]
                                     head))))
-   body))
+   (concat body
+           [[:a {:href "https://wa.me/27333869139" :target "_blank" :rel "noopener noreferrer"
+                 :class (str "fixed bottom-6 right-6 z-50 flex size-14 items-center justify-center "
+                             "rounded-full bg-green-500 text-white shadow-lg "
+                             "transition-all duration-300 hover:bg-green-600 hover:scale-110 "
+                             "hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 "
+                             "focus-visible:ring-green-500 focus-visible:ring-offset-2")}
+             (icons/whatsapp-icon)]])))
 
 (defn page [ctx & body]
   (base

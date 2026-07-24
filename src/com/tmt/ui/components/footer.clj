@@ -58,12 +58,18 @@
        [:p {:class "text-sm text-white/60"} "New England Road:"]
        [:a {:href "tel:+27333460177"
             :class "text-sm font-medium text-white hover:text-brand-300 transition-colors"} "(033) 346 0177"]]]]
-    [:li
-     [:div {:class "flex items-start gap-2.5"}
-      [:span {:class "mt-0.5 shrink-0 text-brand-400"}
-       (icons/mail-icon)]
-      [:a {:href "mailto:info@tmtours.co.za"
-           :class "text-sm font-medium text-white hover:text-brand-300 transition-colors"} "info@tmtours.co.za"]]]]])
+     [:li
+      [:div {:class "flex items-start gap-2.5"}
+       [:span {:class "mt-0.5 shrink-0 text-brand-400"}
+        (icons/mail-icon)]
+       [:a {:href "mailto:info@tmtours.co.za"
+            :class "text-sm font-medium text-white hover:text-brand-300 transition-colors"} "info@tmtours.co.za"]]]
+     [:li
+      [:div {:class "flex items-start gap-2.5"}
+       [:span {:class "mt-0.5 shrink-0 text-green-400"}
+        (icons/whatsapp-icon)]
+       [:a {:href "https://wa.me/27333869139" :target "_blank" :rel "noopener noreferrer"
+            :class "text-sm font-medium text-white hover:text-green-300 transition-colors"} "WhatsApp"]]]]])
 
 (defn- bottom-bar []
   [:div {:class "border-t border-white/10"}
@@ -78,7 +84,7 @@
        (icons/chevron-up-icon)]]]])
 
 (defn footer []
-  [:footer {:class "bg-brand-900"}
+  [:footer {:class "bg-brand-900 mt-auto"}
    [:div {:class "relative"}
     [:div {:class "absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-500 via-brand-400 to-brand-500"}]
     [:div {:class "max-w-6xl mx-auto px-8 py-16 grid gap-10 md:grid-cols-3"}

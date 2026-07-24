@@ -31,23 +31,70 @@
 
 (defn- cta-banner [title href icon-fn]
   [:a {:href href
-       :class (str "group relative block rounded-2xl bg-white p-6 text-center "
-                   "shadow-neu-sm "
-                   "transition-all duration-300 hover:-translate-y-1 hover:shadow-neu-hover "
+       :class (str "group relative block rounded-2xl bg-gradient-to-br from-brand-600 to-brand-700 "
+                   "p-6 text-center text-white shadow-lg "
+                   "transition-all duration-300 hover:-translate-y-1 hover:shadow-xl "
                    "before:absolute before:inset-x-6 before:-top-px before:h-px "
-                   "before:bg-gradient-to-r before:from-transparent before:via-brand-500/60 before:to-transparent")}
-   [:div {:class "mx-auto mb-3 flex size-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600"}
+                   "before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent")}
+   [:div {:class "mx-auto mb-3 flex size-10 items-center justify-center rounded-xl bg-white/20 text-white"}
     (icon-fn)]
-   [:span {:class "inline-flex items-center gap-1.5 text-base font-semibold text-gray-900 group-hover:text-brand-700"}
+   [:span {:class "inline-flex items-center gap-1.5 text-base font-semibold text-white"}
     title
     (icons/arrow-icon)]])
 
 (defn- cta-banners []
   [:section {:class "bg-white"}
    [:div {:class "max-w-6xl mx-auto px-8 py-12 md:py-16 grid gap-6 sm:grid-cols-3"}
-    (cta-banner "Make a Reservation" "/reservations" icons/house-icon)
-    (cta-banner "View the Rooms" "/rooms" icons/bed-icon)
-    (cta-banner "Latest Specials" "/specials" icons/tag-icon)]])
+     (cta-banner "Make a Reservation" "/reservations" icons/house-icon)
+     (cta-banner "View the Rooms" "/rooms" icons/bed-icon)
+     (cta-banner "Contact Us" "/contact" icons/mail-icon)]])
+
+(def ^:private testimonials
+  [{:quote "Clean, comfortable rooms and the staff were incredibly welcoming. Felt right at home from the moment I arrived."
+    :author "Thandi M."
+    :location "Durban"}
+   {:quote "Perfect location for exploring Pietermaritzburg. The self-catering unit had everything we needed for a week-long stay."
+    :author "David K."
+    :location "Johannesburg"}
+   {:quote "I stay here every time I'm in town for work. Consistent quality, great value, and the team always remembers my preferences."
+    :author "Nosipho Z."
+    :location "Cape Town"}])
+
+(defn- testimonials-section []
+  [:section {:class "bg-gray-50"}
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-24"}
+    (shared/section-heading "Guest Reviews" "What Our Guests Say")
+    [:div {:class "mt-10 grid gap-6 md:grid-cols-3"}
+     (for [t testimonials]
+       [:div {:class (str "relative flex flex-col rounded-2xl bg-white p-6 shadow-neu-sm "
+                          "transition-all duration-300 hover:-translate-y-1 hover:shadow-neu-hover")}
+        [:div {:class "flex gap-1 mb-3"}
+         (for [_ (range 5)]
+           (icons/star-icon))]
+        [:blockquote {:class "flex-1 text-sm text-gray-600 leading-relaxed"}
+         "\" " (:quote t) " \""]
+        [:div {:class "mt-4 pt-3 border-t border-gray-100"}
+         [:p {:class "text-sm font-semibold text-gray-900"} (:author t)]
+         [:p {:class "text-xs text-gray-500"} (:location t)]]])]]])
+
+(def ^:private stats
+  [{:value "10+"
+    :label "Years of Hospitality"}
+   {:value "2"
+    :label "Prime Locations"}
+   {:value "4"
+    :label "Room Types"}
+   {:value "500+"
+    :label "Happy Guests"}])
+
+(defn- stats-section []
+  [:section {:class "bg-gradient-to-br from-brand-900 via-brand-800 to-brand-700 text-white"}
+   [:div {:class "max-w-6xl mx-auto px-8 py-16 md:py-20"}
+    [:div {:class "grid grid-cols-2 md:grid-cols-4 gap-8 text-center"}
+     (for [s stats]
+       [:div
+        [:p {:class "text-3xl md:text-4xl font-bold"} (:value s)]
+        [:p {:class "mt-1 text-sm text-brand-200"} (:label s)]])]]])
 
 (defn- read-more [href]
   [:a {:href href
@@ -89,7 +136,9 @@
     [:main
     (hero-section)
     (cta-banners)
+    (stats-section)
     (welcome-section)
+    (testimonials-section)
     (tours-section)]
    (footer/footer)))
 

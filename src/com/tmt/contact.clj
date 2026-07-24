@@ -10,7 +10,7 @@
             [rum.core :as rum]))
 
 (def ^:private categories
-  ["Guest Lodge" "Travel and Tours" "Reservations" "Newsletter"])
+  ["Guest Lodge" "Travel and Tours" "General Enquiry"])
 
 (def ^:private locations
   [{:name "Globe Road"
@@ -105,9 +105,15 @@
       [:p {:class "mt-2 text-sm text-gray-700"} "Globe Road: (033) 386 9139"]
       [:p {:class "mt-1 text-sm text-gray-700"} "New England Road: (033) 346 0177"]]
       [:div {:class "rounded-2xl bg-gray-50 p-6 shadow-neu-sm"}
+       [:h3 {:class "text-sm font-semibold uppercase tracking-wide text-gray-500"} "WhatsApp"]
+       [:p {:class "mt-2 text-sm"}
+        [:a {:href "https://wa.me/27333869139" :target "_blank" :rel "noopener noreferrer"
+             :class "text-brand-600 hover:text-brand-800"}
+         "Chat with us on WhatsApp"]]]
+      [:div {:class "rounded-2xl bg-gray-50 p-6 shadow-neu-sm"}
        [:h3 {:class "text-sm font-semibold uppercase tracking-wide text-gray-500"} "Follow Us"]
-       [:p {:class "mt-2 text-sm text-gray-700"} "Facebook & Twitter: @tmtours"]
-       [:p {:class "mt-1 text-sm text-gray-700"} "Skype: tmtours"]]
+       [:p {:class "mt-2 text-sm text-gray-700"} "Facebook: @tmtours"]
+       [:p {:class "mt-1 text-sm text-gray-700"} "Twitter/X: @tmtours"]]
        (illust/map-illustration)]]])
 
 (defn- directions-list [items]
